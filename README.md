@@ -1,5 +1,5 @@
 # fixit3160
-### Spring implementation of our FixIT3150 project
+### Spring implementation of our project using Spring-boot, Hibernate, and Spring-security
 
 
 Project now live on heroku at https://fixit3160.herokuapp.com
