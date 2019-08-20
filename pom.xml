@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>fixit3160</groupId>
 	<artifactId>fixit3160</artifactId>
-	<version>0.1</version>
+	<version>1.0</version>
 	<name>fixit3160</name>
 	<description>IT support ticketing system</description>
 
