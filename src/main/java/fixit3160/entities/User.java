@@ -1,22 +1,35 @@
+/*
+ * Class: User.java
+ * Package: fixit3160.entities
+ * Project: fixit3160
+ *		An IT help ticketing support system developed using Spring
+ *
+ * SENG3160 University of Newcastle 2019
+ *
+ * Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+ *
+ */
 package fixit3160.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.*;
 
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.core.GrantedAuthority;
 /**
  * @author Benjamin McDonnell (c3166457)
- *
+ * Defines a JPA entity object that represents a table in the database
  */
 
 @ComponentScan({ "fixit3160.*" })
 @Entity
 @Table(name = "users", schema="public")
-public class User implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class User implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

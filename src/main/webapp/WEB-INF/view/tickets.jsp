@@ -15,7 +15,7 @@
 				<th>Name</th>
 				<th>Description</th>
 				<th>State</th>
-				<th>Poster By</th>
+				<th>Posted By</th>
 				<th>Assigned To</th>
 				<th>Date Created</th>
 			</tr>

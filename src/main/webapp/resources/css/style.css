@@ -1,0 +1,22 @@
+.nav-link {
+	line-height: 80px;
+	padding: 0px 0px;
+}
+.nav-item > form {
+	padding: 0px 0px;
+	line-height: 80px;
+	margin: 0;
+	margin-block-end: 0;
+	
+}
+
+.nav-item > form > input {
+	line-height: 80px;
+	padding: 0px 0px;
+	border: none;
+	border-radius: 0;
+}
+
+.fixit-bg-blue {
+	background-color: #2d3e50!important;
+}

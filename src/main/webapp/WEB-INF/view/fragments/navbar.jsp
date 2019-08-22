@@ -3,11 +3,11 @@
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="page" value="${requestScope['javax.servlet.forward.request_uri']}" />
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+<nav class="navbar navbar-expand-sm fixit-bg-blue navbar-dark my-auto">
   <ul class="navbar-nav">
   
   	<li class="nav-item">
-  		<a href="/"><img class="nav-link" src="/resources/img/logo.png" alt="FixIT" /></a>
+  		<a href="/"><img class="nav-link" src="/resources/img/logo_white_small.png" alt="FixIT" /></a>
   	</li>
     
     <li class="nav-item">
@@ -27,9 +27,9 @@
     </li>
     
     <li class="nav-item">
-      <form class="nav-link" name='logoutForm' action="<c:url value='/logout' />" method='POST'> 
+      <form name='logoutForm' action='/logout' method='POST'> 
      	 <input type="hidden" name="${_csrf.parameterName}"value="${_csrf.token}" />
-     	 <input name="submit" type="submit" value="Logout" />
+     	 <input class="btn btn-link nav-link" name="submit" type="submit" value="Logout" />
       </form>
     </li>
     

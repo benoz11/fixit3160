@@ -1,3 +1,14 @@
+/*
+ * Class: Comment.java
+ * Package: fixit3160.entities
+ * Project: fixit3160
+ *		An IT help ticketing support system developed using Spring
+ *
+ * SENG3160 University of Newcastle 2019
+ *
+ * Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+ *
+ */
 package fixit3160.entities;
 
 import java.io.Serializable;
@@ -5,15 +16,16 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.springframework.context.annotation.ComponentScan;
+
 /**
  * @author Benjamin McDonnell (c3166457)
- *
+ * Defines a JPA entity object that represents a table in the database
  */
 
 @ComponentScan({ "fixit3160.*" })
 @Entity
 @Table(name = "comments", schema="public")
-public class Comment implements Serializable{
+public class Comment implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
