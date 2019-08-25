@@ -37,6 +37,7 @@ import fixit3160.entities.Ticket;
  *    		findByColumn1AndColumn2
  *    		findDistinctByColumname
  *    		deleteByID
+ *    		public ArrayList<Comments> findByTicketId(int id);
  *    
  *    	See: https://www.concretepage.com/spring-boot/spring-boot-crudrepository-example
  *    		 https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html
@@ -81,6 +82,8 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 	@Query ("SELECT t FROM Ticket t WHERE "
 			+ "t.description LIKE '%keyboard%'")
 	public ArrayList<Ticket> findKeyboard();
+	
+	public ArrayList<Ticket> findByDescriptionContaining(String containing);
 
 	/* modified query that searches both name and description*/
 	@Query ("SELECT t FROM Ticket t WHERE "
@@ -89,6 +92,9 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 			+ "t.description LIKE '%testing%' OR "
 			+ "t.description LIKE '%testing%'")
 	public ArrayList<Ticket> findSearchTerm(String searchTerm);
+	
+	public ArrayList<Ticket> findAllByOrderByDescriptionAsc();
+	public ArrayList<Ticket> findAllByOrderByDescriptionDesc();
 
 
 }

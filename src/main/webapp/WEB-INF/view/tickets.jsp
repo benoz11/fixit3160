@@ -33,9 +33,9 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	<form method="get">
-		<button type="submit" form="orderForm" value="A-Z">Order A-Z</button>
-		<button type="submit" form="orderForm" value="Z-A">Order Z-A</button>
+	<form method="get" action="/ticketwithdescription">
+		<button type="submit" form="orderForm" name="orderBy" value="asc">Order A-Z</button>
+		<button type="submit" form="orderForm" name="orderBy" value="desc">Order Z-A</button>
 	</form>
 
 	<form>

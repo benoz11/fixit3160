@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import fixit3160.db.CommentDao;
@@ -48,6 +49,24 @@ public class TicketController {
 	public ModelAndView tickets() {
 		ModelAndView mvc = new ModelAndView("tickets");
 		ArrayList<Ticket> tickets = ticketDao.findForCurrentUser();
+		mvc.addObject("tickets", tickets);
+		return mvc;
+	}
+	
+	//add ticket to database
+	//get info from form
+	//call dao method to create ticket
+	//load a view for that ticket (redirect)
+	
+	@GetMapping("/ticketwithdescription")
+	public ModelAndView ticket2(@RequestParam(value = "orderBy", required=false) String orderBy) {
+		ModelAndView mvc = new ModelAndView("tickets");
+		ArrayList<Ticket> tickets = new ArrayList<>();
+		//get the parameter orderby
+		//check if null
+		//if (orderBy.equals("asc")) {tickets = ticketDao.findAllByOrderByDescriptionAsc();}
+		//else {tickets = ticketDao.findAllByOrderByDescriptionDesc();}
+		tickets = ticketDao.findAllByOrderByDescriptionAsc();
 		mvc.addObject("tickets", tickets);
 		return mvc;
 	}
