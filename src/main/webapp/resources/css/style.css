@@ -2,6 +2,7 @@
 	line-height: 80px;
 	padding: 0px 0px;
 }
+
 .nav-item > form {
 	padding: 0px 0px;
 	line-height: 80px;
@@ -20,3 +21,9 @@
 .fixit-bg-blue {
 	background-color: #2d3e50!important;
 }
+
+.clickable-row {
+	cursor:pointer;
+}
+
+.clickable-row:hover td {background:#d0faff}

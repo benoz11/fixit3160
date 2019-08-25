@@ -28,7 +28,7 @@ import fixit3160.entities.Ticket;
  * @author Benjamin McDonnell (c3166457)
  * Handles database access for the public.ticket database
  * Note: 
- * 		We do NOT need to provid implementation for these!
+ * 		We do NOT need to provide implementation for these!
  * 		Hibernate will automatically wire these up to our db
  * 		Just specify the return/param type and use the given naming conventions, eg
  * 		 	findByColumname

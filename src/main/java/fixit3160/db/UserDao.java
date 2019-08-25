@@ -12,6 +12,7 @@
 package fixit3160.db;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
@@ -26,10 +27,28 @@ import fixit3160.entities.User;
 
 @Repository
 public interface UserDao extends CrudRepository<User, Long> {
-	@Transactional
+	
 	public ArrayList<User> findAll();
 	
 	public User findByUsername(String username);
 	
-	public User findById(int id);
+	public Optional<User> findById(int id);
+	
+	/*
+	 * Adding a new entry to DB
+	 * -Create new Object
+	 * -Set some values on it
+	 * -call the save method
+	 */
+	
+	/*
+	 * Updating a DB entry
+	 * -Create object by querying by id
+	 * -change some values on it
+	 * -call the save method
+	 */
+	public <S extends User> S save(S user);
+	
+	
+	
 }
