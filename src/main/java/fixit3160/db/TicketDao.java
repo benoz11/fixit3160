@@ -62,7 +62,33 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 			+ " OR t.posterid = (SELECT u FROM User u WHERE u.username = ?#{ principal?.username })"
 			+ " OR t.caseworkerid = (SELECT u FROM User u WHERE u.username = ?#{ principal?.username })")
 	public ArrayList<Ticket> findForCurrentUser();
+
 	
 	public Ticket findById(int id);
+
+
+	
+	/* Sorting alphabetically, both ascending and descending */
+	@Query ("SELECT t FROM Ticket t "
+			+ "ORDER BY t.description ASC")
+	public ArrayList<Ticket> orderAlphabeticallyAscending();
+
+	@Query ("SELECT t FROM Ticket t "
+			+ "ORDER BY t.description DESC")
+	public ArrayList<Ticket> orderAlphabeticallyDescending();
+
+	/* modified query that searches description */
+	@Query ("SELECT t FROM Ticket t WHERE "
+			+ "t.description LIKE '%keyboard%'")
+	public ArrayList<Ticket> findKeyboard();
+
+	/* modified query that searches both name and description*/
+	@Query ("SELECT t FROM Ticket t WHERE "
+			+ "t.name LIKE '%testing%' OR "
+			+ "t.name LIKE '%testing%' OR "
+			+ "t.description LIKE '%testing%' OR "
+			+ "t.description LIKE '%testing%'")
+	public ArrayList<Ticket> findSearchTerm(String searchTerm);
+
 
 }

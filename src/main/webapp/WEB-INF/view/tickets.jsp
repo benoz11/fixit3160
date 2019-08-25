@@ -33,5 +33,14 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<form method="get">
+		<button type="submit" form="orderForm" value="A-Z">Order A-Z</button>
+		<button type="submit" form="orderForm" value="Z-A">Order Z-A</button>
+	</form>
+
+	<form>
+		Search term: <input type="text" name="searchterm">
+		<input type="submit" value="Search">
+	</form>
 </body>
 </html>
