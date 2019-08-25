@@ -24,56 +24,39 @@
 		background-color: #d9edf7;
 		border-color: #bce8f1;
 	}
-	
-	#login-box {
-		width: 300px;
-		padding: 20px;
-		margin: 100px auto;
-		background: #fff;
-		-webkit-border-radius: 2px;
-		-moz-border-radius: 2px;
-		border: 1px solid #000;
-	}
 	</style>
 </head>
-<body onload='document.loginForm.username.focus();'>
-
-	<h1>FixIT Login (Spring Security)</h1>
-
-	<div id="login-box">
-
-		<h2>Login</h2>
-
-		<c:if test="${not empty error}">
-			<div class="error">${error}</div>
-		</c:if>
-		<c:if test="${not empty msg}">
-			<div class="msg">${msg}</div>
-		</c:if>
-
-<!-- Even though this is the login page, directing to /login tells Spring Security to check the datasource against the given user and pass and create a session-->
-		<form name='loginForm'
-		  action="<c:url value='/login' />" method='POST'> 
-
-		<table>
-			<tr>
-				<td>User:</td>
-				<td><input type='text' name='username'></td>
-			</tr>
-			<tr>
-				<td>Password:</td>
-				<td><input type='password' name='password' /></td>
-			</tr>
-			<tr>
-				<td colspan='2'><input name="submit" type="submit" value="Login" /></td>
-			</tr>
-		  </table>
-
-		  <input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
-
+<body>
+	<div class="container">
+		<!-- Even though this is the login page, directing to /login tells Spring Security to check the datasource against the given user and pass and create a session-->
+		<form class="w-50 h-50 p-5" style="margin:auto;" name='loginForm' action="<c:url value='/login' />" method='POST'> 
+			<div class="form-group">
+				<img class="img-fluid rounded mx-auto d-block" src="/resources/img/logo.png" alt="FixIT" />
+				<h2 class="text-center">Welcome to FixIT</h2>
+				<h3 class="text-center">Please Log in</h3>
+			</div>
+	
+			<c:if test="${not empty error}">
+				<div class="error">${error}</div>
+			</c:if>
+			<c:if test="${not empty msg}">
+				<div class="msg">${msg}</div>
+			</c:if>
+	
+	
+			<div class="form-group">
+				<label for="username">Username</label>
+				<input class="form-control" type='text' name='username' id='username'>
+			</div>
+			<div class="form-group">
+				<label for="password">Password</label>
+				<input class="form-control" type='password' name='password' id='password'/>
+			</div>
+				<button type="submit" class="btn btn-primary">Log in</button>
+	
+			  <input type="hidden" name="${_csrf.parameterName}"
+				value="${_csrf.token}" />
 		</form>
 	</div>
-
 </body>
 </html>
