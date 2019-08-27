@@ -3,12 +3,16 @@
 <html>
 <head>
 	<jsp:include page="fragments/header.jsp" />
+	<script src="/resources/js/searchScript.js"></script>
 	<title>FixIT Tickets</title>
 </head>
 <body>
 	<jsp:include page="fragments/navbar.jsp" />
 	<h1>Tickets</h1>
-	
+	<form id="searchForm">
+		Search:<input type="text" name="searchTerm" value="" onkeyup = "search()" />
+	</form>
+
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -20,7 +24,7 @@
 				<th>Date Created</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody id = "ticketTableBody">
 			<c:forEach items="${tickets}" var="ticket">
 				<tr>
 					<td><c:out value="${ticket.name}" /></td>
@@ -36,11 +40,6 @@
 	<form method="get" action="/ticketwithdescription">
 		<button type="submit" form="orderForm" name="orderBy" value="asc">Order A-Z</button>
 		<button type="submit" form="orderForm" name="orderBy" value="desc">Order Z-A</button>
-	</form>
-
-	<form>
-		Search term: <input type="text" name="searchterm">
-		<input type="submit" value="Search">
 	</form>
 </body>
 </html>

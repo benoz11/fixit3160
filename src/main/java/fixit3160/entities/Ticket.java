@@ -57,16 +57,19 @@ public class Ticket implements Serializable {
     @Column(name = "created")
     @Basic(optional = false)
     private String created;
-    
-    /*
+/*
+	@Column(name = "priorityLevel")
+	@Basic
+	private String prioritylevel;
+*/
+	/*
      * From other tables
      */
 
-    
-    /*
+
+	/*
      * Methods
      */
-
 	public Integer getId() {
 		return id;
 	}
@@ -122,4 +125,12 @@ public class Ticket implements Serializable {
 	public void setCreated(String created) {
 		this.created = created;
 	}
+/*
+	public String getPrioritylevel() {
+		return prioritylevel;
+	}
+
+	public void setPrioritylevel(String prioritylevel) {
+		this.prioritylevel = prioritylevel;
+	}*/
 }
