@@ -8,7 +8,7 @@
 <body>
 	<jsp:include page="fragments/navbar.jsp" />
 	<h1>Users</h1>
-	
+	<a href="/users/create" class="btn btn-primary">Create New User</a>
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>

@@ -80,10 +80,9 @@ public class UserController {
 		return new ModelAndView("redirect:/users");
 	}
 	
-	//Work In Progress
 	@PostMapping("/users/{id}/edit/submit")
-	public ModelAndView submitUserEdits(@PathVariable int id, @RequestParam(value="name") String name,
-			@RequestParam(value="role") String role, @RequestParam(value="name") String username) {
+	public ModelAndView submitUserEdit(@PathVariable int id, @RequestParam(value="name") String name,
+			@RequestParam(value="role") String role, @RequestParam(value="username") String username) {
 		Optional<User> DBUser = userDao.findById(id);
 		if (DBUser.isPresent()) { //if the user exists in the DB
 			User user = DBUser.get();
@@ -94,5 +93,28 @@ public class UserController {
 			return new ModelAndView("redirect:/users/{id}");
 		}
 		return new ModelAndView("redirect:/users");
+	}
+	
+	@GetMapping("/users/create")
+	public ModelAndView createUser() {
+		return new ModelAndView("createuser");
+	}
+	
+	@PostMapping("/users/create/submit")
+	public ModelAndView submitUserCreate(@RequestParam(value="name") String name,
+			@RequestParam(value="role") String role, @RequestParam(value="username") String username,
+			@RequestParam(value="password") String password) {
+		User user = new User();
+		user.setName(name);
+		user.setRole(role);
+		user.setUsername(username);
+		user.setPassword(password);
+		user = userDao.save(user);
+		return new ModelAndView("redirect:/users/" + user.getId());
+	}
+	@PostMapping("/users/{id}/delete")
+	public ModelAndView submitUserDelete(@PathVariable int id) {
+		userDao.deleteById(id);
+		return new ModelAndView("redirect:/users/");
 	}
 }

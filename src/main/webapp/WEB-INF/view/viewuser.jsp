@@ -17,6 +17,10 @@
 			<tr><td>User name</td><td><c:out value="${user.username}" /></td></tr>
 			<tr><td>Created</td><td><c:out value="${user.created}" /></td></tr>
 			<tr><td>Edit</td><td><a href="/users/${user.id}/edit">Edit User</a></td></tr>
+			<tr><td>Delete</td><td>
+			<form action="/users/${user.id}/delete" method="POST"><button type="submit" class="btn btn-link" onclick="return confirm('Are you sure?');">Delete User</button>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			</form></td></tr>
 		</tbody>
 	</table>
 	<a href="/users">Back</a>

@@ -45,8 +45,8 @@
 	
 	
 			<div class="form-group">
-				<label for="username">Username</label>
-				<input class="form-control" type='text' name='username' id='username'>
+				<label for="username">User name</label>
+				<input class="form-control" type='text' name='username' id='username' autofocus>
 			</div>
 			<div class="form-group">
 				<label for="password">Password</label>

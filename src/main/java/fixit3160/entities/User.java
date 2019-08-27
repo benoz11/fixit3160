@@ -12,6 +12,7 @@
 package fixit3160.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Collection;
 
 import javax.persistence.*;
@@ -32,7 +33,7 @@ public class User implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", updatable = false, nullable = false)
     private Integer id;
 	
     @Column(name = "username")
@@ -51,9 +52,9 @@ public class User implements Serializable {
     @Basic(optional = false)
     private String name;
 
-    @Column(name = "created")
-    @Basic(optional = false)
-    private String created;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created", insertable=false)
+    private Date created;
 
 	public Integer getId() {
 		return id;
@@ -95,11 +96,11 @@ public class User implements Serializable {
 		this.name = name;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
-	public void setCreated(String created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 

@@ -22,7 +22,7 @@ if(location.pathname.match(/\/users/) ||  location.pathname.match(/\/ticketss/) 
  */
 if(location.pathname.match(/\/users\/\d+\/edit/)) {
 	//Check the radio button for the current role on the edit user page
-	var role = document.getElementById("role").value;
+	var role = document.getElementById("originalrole").value;
 	document.getElementsByName("role").forEach(checkRoleRadio);
 
 	function checkRoleRadio(item) {

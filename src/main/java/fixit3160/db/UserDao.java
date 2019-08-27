@@ -16,6 +16,7 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
 import fixit3160.entities.User;
@@ -28,10 +29,13 @@ import fixit3160.entities.User;
 @Repository
 public interface UserDao extends CrudRepository<User, Long> {
 	
+	@PreAuthorize ("hasRole('Manager')")
 	public ArrayList<User> findAll();
 	
+	@PreAuthorize ("hasRole('Manager')")
 	public User findByUsername(String username);
 	
+	@PreAuthorize ("hasRole('Manager')")
 	public Optional<User> findById(int id);
 	
 	/*
@@ -45,8 +49,12 @@ public interface UserDao extends CrudRepository<User, Long> {
 	 * -change some values on it
 	 * -call the save method
 	 */
+	@PreAuthorize ("hasRole('Manager')")
 	public <S extends User> S save(S user);
 	
+	@Transactional
+	@PreAuthorize ("hasRole('Manager')")
+	public void deleteById(int id);
 	
 	
 }
