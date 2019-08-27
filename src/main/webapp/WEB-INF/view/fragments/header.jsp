@@ -8,4 +8,3 @@
 <link rel="icon" href="/resources/img/favicon_blue.ico">
 
 <script src="/resources/js/jquery-3.4.1.min.js"></script>
-<script src="/resources/js/script.js"></script>

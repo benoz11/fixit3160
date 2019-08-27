@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import fixit3160.db.CommentDao;
@@ -38,10 +41,6 @@ public class UserController {
 
 	@Autowired
 	private UserDao userDao;
-	@Autowired
-	private TicketDao ticketDao;
-	@Autowired
-	private CommentDao commentDao;
 	
 	@GetMapping("/users")
 	public ModelAndView users() {
@@ -65,6 +64,34 @@ public class UserController {
 			mvc = new ModelAndView("viewuser");
 			mvc.addObject("user", user.get());
 			return mvc;
+		}
+		return new ModelAndView("redirect:/users");
+	}
+	
+	@GetMapping("/users/{id}/edit")
+	public ModelAndView editUser(@PathVariable int id) {
+		ModelAndView mvc;
+		Optional<User> user = userDao.findById(id);
+		if (user.isPresent()) { //if the user exists in the DB
+			mvc = new ModelAndView("edituser");
+			mvc.addObject("user", user.get());
+			return mvc;
+		} //else
+		return new ModelAndView("redirect:/users");
+	}
+	
+	//Work In Progress
+	@PostMapping("/users/{id}/edit/submit")
+	public ModelAndView submitUserEdits(@PathVariable int id, @RequestParam(value="name") String name,
+			@RequestParam(value="role") String role, @RequestParam(value="name") String username) {
+		Optional<User> DBUser = userDao.findById(id);
+		if (DBUser.isPresent()) { //if the user exists in the DB
+			User user = DBUser.get();
+			user.setName(name);
+			user.setRole(role);
+			user.setUsername(username);
+			userDao.save(user);
+			return new ModelAndView("redirect:/users/{id}");
 		}
 		return new ModelAndView("redirect:/users");
 	}

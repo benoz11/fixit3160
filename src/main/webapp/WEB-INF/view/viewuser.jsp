@@ -14,10 +14,13 @@
 			<tr><td>Name</td><td><c:out value="${user.name}" /></td></tr>
 			<tr><td>ID</td><td><c:out value="${user.id}" /></td></tr>
 			<tr><td>Role</td><td><c:out value="${user.role}" /></td></tr>
-			<tr><td>Username</td><td><c:out value="${user.username}" /></td></tr>
+			<tr><td>User name</td><td><c:out value="${user.username}" /></td></tr>
 			<tr><td>Created</td><td><c:out value="${user.created}" /></td></tr>
+			<tr><td>Edit</td><td><a href="/users/${user.id}/edit">Edit User</a></td></tr>
 		</tbody>
 	</table>
 	<a href="/users">Back</a>
+	
+<jsp:include page="fragments/footer.jsp" />
 </body>
 </html>

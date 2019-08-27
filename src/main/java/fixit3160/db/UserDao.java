@@ -39,9 +39,7 @@ public interface UserDao extends CrudRepository<User, Long> {
 	 * -Create new Object
 	 * -Set some values on it
 	 * -call the save method
-	 */
-	
-	/*
+	 *
 	 * Updating a DB entry
 	 * -Create object by querying by id
 	 * -change some values on it
