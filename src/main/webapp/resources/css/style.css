@@ -27,3 +27,18 @@
 }
 
 .clickable-row:hover td {background:#d0faff}
+
+.margin-auto {
+	margin:auto;
+}
+
+.no-margin-block-end {
+	margin-block-end: 0em;
+}
+
+.button-none {
+	padding: 0;
+	border: none;
+	line-height: 1;
+	border-radius: 0;
+}

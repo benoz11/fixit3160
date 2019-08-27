@@ -29,7 +29,7 @@
 <body>
 	<div class="container">
 		<!-- Even though this is the login page, directing to /login tells Spring Security to check the datasource against the given user and pass and create a session-->
-		<form class="w-50 h-50 p-5" style="margin:auto;" name='loginForm' action="<c:url value='/login' />" method='POST'> 
+		<form class="w-50 h-50 p-5 margin-auto" name='loginForm' action="<c:url value='/login' />" method='POST'> 
 			<div class="form-group">
 				<img class="img-fluid rounded mx-auto d-block" src="/resources/img/logo.png" alt="FixIT" />
 				<h2 class="text-center">Welcome to FixIT</h2>
