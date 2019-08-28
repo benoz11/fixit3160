@@ -100,6 +100,22 @@ public class TicketController {
 		return new ModelAndView("redirect:/tickets");
 	}
 	
+	@PostMapping("/tickets/{id}/editcomment")
+	public ModelAndView editComment(@PathVariable int id, @RequestParam(value="commentid") int commentid,
+			@RequestParam(value="commentcontents") String commentcontents) {
+		Optional<Ticket> dbTicket = ticketDao.findById(id); 							//find ticket by id
+		if (dbTicket.isPresent()) {	
+			Optional<Comment> dbComment = commentDao.findById(commentid);
+			if (dbComment.isPresent()) {
+				Comment comment = dbComment.get();
+				comment.setContents(commentcontents);
+				commentDao.save(comment);
+				return new ModelAndView("redirect:/tickets/"+id);
+			}
+		}
+		return new ModelAndView("redirect:/tickets");
+	}
+	
 	//add ticket to database
 	//get info from form
 	//call dao method to create ticket

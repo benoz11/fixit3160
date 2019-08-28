@@ -75,6 +75,7 @@ public class Ticket implements Serializable {
      * One ticket can have many comments associated with it
      */
     @OneToMany(mappedBy="ticketid")
+    @OrderBy("id")
     private List<Comment> comments = new ArrayList<Comment>();
 /*
 	@Column(name = "priorityLevel")

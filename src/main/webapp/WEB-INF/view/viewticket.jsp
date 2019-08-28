@@ -33,10 +33,16 @@
 		<c:forEach items="${ticket.comments}" var="comment">
 			<div class="comment">
 				<div class="comment-poster">${comment.poster.name}:</div>
-				<div class="comment-contents">${comment.contents}</div>
-				<div class="comment-edit">
-
-				</div>
+				<form action="/tickets/${ticket.id}/editcomment" method="POST" id="submitcommenteditform${comment.id}">
+					<div class="comment-contents"><textarea name="commentcontents" id="commentcontents${comment.id}" readonly cols="50" rows="5">${comment.contents}</textarea></div>
+					<div class="comment-edit">
+						<button type="button" name="editbutton" id="editbutton${comment.id}" onClick="editComment(${comment.id})">Edit Comment</button>
+						<button type="button" name="canceleditbutton" id="canceleditbutton${comment.id}" onClick="cancelEditComment(${comment.id})" hidden="true">Cancel</button>
+						<button type="button" name="submiteditbutton" id="submiteditbutton${comment.id}" onClick="submitCommentEdit(${comment.id})" hidden="true">Submit Changes</button>
+					</div>
+					<input type="hidden" name="commentid" id="commentid" value="${comment.id}"/>
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				</form>
 				<div class="comment-delete">
 					<form action="/tickets/${ticket.id}/deletecomment" method="POST" class="no-margin-block-end">
 						<button type="submit" class="btn btn-link button-none" onclick="return confirm('Are you sure?');">Delete Comment</button>

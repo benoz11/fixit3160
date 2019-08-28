@@ -31,3 +31,25 @@ if(location.pathname.match(/\/users\/\d+\/edit/)) {
 		}
 	}
 }
+
+var oldval;
+function editComment(commentid) {
+	window.oldval = document.getElementById("commentcontents"+commentid).value;
+	document.getElementById("commentcontents"+commentid).readOnly = false;
+	document.getElementById("canceleditbutton"+commentid).hidden= false;
+	document.getElementById("submiteditbutton"+commentid).hidden= false;
+	
+	document.getElementsByName("editbutton").forEach(function(obj) {obj.hidden = true;});	
+}
+
+function cancelEditComment(commentid) {
+	document.getElementById("commentcontents"+commentid).value = window.oldval;
+	document.getElementsByName("commentcontents").forEach(function(obj) {obj.readOnly = true;});
+	document.getElementsByName("canceleditbutton").forEach(function(obj) {obj.hidden = true;});
+	document.getElementsByName("submiteditbutton").forEach(function(obj) {obj.hidden = true;});
+	document.getElementsByName("editbutton").forEach(function(obj) {obj.hidden = false;});
+}
+
+function submitCommentEdit(commentid) {
+	document.getElementById("submitcommenteditform"+commentid).submit();
+}
