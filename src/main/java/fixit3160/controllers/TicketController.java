@@ -90,6 +90,16 @@ public class TicketController {
 		return new ModelAndView("redirect:/tickets");
 	}
 	
+	@PostMapping("/tickets/{id}/deletecomment")
+	public ModelAndView deleteComment(@PathVariable int id, @RequestParam(value="commentid") int commentid) {
+		Optional<Ticket> dbTicket = ticketDao.findById(id); 							//find ticket by id
+		if (dbTicket.isPresent()) {	
+			commentDao.deleteById(commentid);
+			return new ModelAndView("redirect:/tickets/"+id);
+		}
+		return new ModelAndView("redirect:/tickets");
+	}
+	
 	//add ticket to database
 	//get info from form
 	//call dao method to create ticket

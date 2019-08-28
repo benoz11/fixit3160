@@ -34,6 +34,16 @@
 			<div class="comment">
 				<div class="comment-poster">${comment.poster.name}:</div>
 				<div class="comment-contents">${comment.contents}</div>
+				<div class="comment-edit">
+
+				</div>
+				<div class="comment-delete">
+					<form action="/tickets/${ticket.id}/deletecomment" method="POST" class="no-margin-block-end">
+						<button type="submit" class="btn btn-link button-none" onclick="return confirm('Are you sure?');">Delete Comment</button>
+						<input type="hidden" name="commentid" id="commentid" value="${comment.id}"/>
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					</form>
+				</div>
 			</div>
 		</c:forEach>
 	</div>

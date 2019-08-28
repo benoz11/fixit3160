@@ -12,9 +12,11 @@
 package fixit3160.db;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
 import fixit3160.entities.Comment;
@@ -30,6 +32,9 @@ public interface CommentDao extends CrudRepository<Comment, Long> {
 	@Transactional
 	public ArrayList<Comment> findAll();
 	
+	@Transactional
+	public Optional<Comment> findById(int id);
+	
 	/*
 	 * Adding a new entry to DB
 	 * -Create new Object
@@ -43,4 +48,7 @@ public interface CommentDao extends CrudRepository<Comment, Long> {
 	 */
 	@Transactional
 	public <S extends Comment> S save(S comment);
+	
+	@Transactional
+	public void deleteById(int id);
 }
