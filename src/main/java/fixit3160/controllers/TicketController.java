@@ -12,12 +12,14 @@
 package fixit3160.controllers;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -25,6 +27,7 @@ import fixit3160.db.CommentDao;
 import fixit3160.db.TicketDao;
 import fixit3160.db.UserDao;
 import fixit3160.entities.Ticket;
+import fixit3160.entities.User;
 
 /**
  * @author Benjamin McDonnell (c3166457)
@@ -53,11 +56,24 @@ public class TicketController {
 		return mvc;
 	}
 	
+	@GetMapping("/tickets/{id}")
+	public ModelAndView viewTicket(@PathVariable int id) {
+		ModelAndView mvc;
+		Optional<Ticket> ticket = ticketDao.findById(id);
+		if (ticket.isPresent()) {
+			mvc = new ModelAndView("viewticket");
+			mvc.addObject("ticket", ticket.get());
+			return mvc;
+		}
+		return new ModelAndView("redirect:/tickets");
+	}
+	
 	//add ticket to database
 	//get info from form
 	//call dao method to create ticket
 	//load a view for that ticket (redirect)
 	
+	//Just a demonstration for educational purposes
 	@GetMapping("/ticketwithdescription")
 	public ModelAndView ticket2(@RequestParam(value = "orderBy", required=false) String orderBy) {
 		ModelAndView mvc = new ModelAndView("tickets");

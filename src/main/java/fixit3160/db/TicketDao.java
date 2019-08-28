@@ -12,6 +12,7 @@
 package fixit3160.db;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -65,10 +66,8 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 	public ArrayList<Ticket> findForCurrentUser();
 
 	
-	public Ticket findById(int id);
+	public Optional<Ticket> findById(int id);
 
-
-	
 	/* Sorting alphabetically, both ascending and descending */
 	@Query ("SELECT t FROM Ticket t "
 			+ "ORDER BY t.description ASC")

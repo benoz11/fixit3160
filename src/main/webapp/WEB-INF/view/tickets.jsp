@@ -27,7 +27,7 @@
 		</thead>
 		<tbody id = "ticketTableBody">
 			<c:forEach items="${tickets}" var="ticket">
-				<tr>
+				<<tr class="clickable-row" data-href="/tickets/${ticket.id}">
 					<td><c:out value="${ticket.name}" /></td>
 					<td><c:out value="${ticket.description}" /></td>
 					<td><c:out value="${ticket.state}" /></td>
@@ -42,5 +42,6 @@
 		<button type="submit" form="orderForm" name="orderBy" value="asc">Order A-Z</button>
 		<button type="submit" form="orderForm" name="orderBy" value="desc">Order Z-A</button>
 	</form>
+<jsp:include page="fragments/footer.jsp" />
 </body>
 </html>

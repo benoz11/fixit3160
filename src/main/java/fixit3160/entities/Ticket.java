@@ -12,6 +12,8 @@
 package fixit3160.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -65,6 +67,13 @@ public class Ticket implements Serializable {
     @Column(name = "created")
     @Basic(optional = false)
     private String created;
+    
+    /*
+     * Defines a OneToMany relationship with the comments table
+     * One ticket can have many comments associated with it
+     */
+    //@OneToMany(mappedBy="tickets")
+    //private ArrayList<Comment> comments;
 /*
 	@Column(name = "priorityLevel")
 	@Basic
