@@ -30,8 +30,8 @@
 					<td><c:out value="${ticket.name}" /></td>
 					<td><c:out value="${ticket.description}" /></td>
 					<td><c:out value="${ticket.state}" /></td>
-					<td><c:out value="${ticket.posterid}" /></td>
-					<td><c:out value="${ticket.caseworkerid}" /></td>
+					<td><c:out value="${ticket.poster.name}" /></td>
+					<td><c:out value="${ticket.caseworker.name}" /></td>
 					<td><c:out value="${ticket.created}" /></td>
 				</tr>
 			</c:forEach>

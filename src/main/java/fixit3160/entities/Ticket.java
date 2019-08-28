@@ -42,12 +42,20 @@ public class Ticket implements Serializable {
     @Basic(optional = false)
     private String state;
     
-    @Column(name = "posterid")
+    @JoinColumn(name = "posterid")
+    @ManyToOne
     @Basic(optional = false)
+    private User poster;
+    
+    @Column(name="posterid", updatable=false, insertable=false)
     private Integer posterid;
     
-    @Column(name = "caseworkerid")
+    @JoinColumn(name = "caseworkerid")
+    @ManyToOne
     @Basic(optional = true)
+    private User caseworker;
+    
+    @Column(name="caseworkerid", updatable=false, insertable=false)
     private Integer caseworkerid;
 
     @Column(name = "name")
@@ -94,20 +102,20 @@ public class Ticket implements Serializable {
 		this.state = state;
 	}
 
-	public Integer getPosterid() {
-		return posterid;
+	public User getPoster() {
+		return poster;
 	}
 
-	public void setPosterid(Integer posterid) {
-		this.posterid = posterid;
+	public void setPoster(User poster) {
+		this.poster = poster;
 	}
 
-	public Integer getCaseworkerid() {
-		return caseworkerid;
+	public User getCaseworker() {
+		return caseworker;
 	}
 
-	public void setCaseworkerid(Integer caseworkerid) {
-		this.caseworkerid = caseworkerid;
+	public void setCaseworker(User caseworker) {
+		this.caseworker = caseworker;
 	}
 
 	public String getName() {
@@ -133,4 +141,21 @@ public class Ticket implements Serializable {
 	public void setPrioritylevel(String prioritylevel) {
 		this.prioritylevel = prioritylevel;
 	}*/
+
+	public Integer getCaseworkerid() {
+		return caseworkerid;
+	}
+
+	public void setCaseworkerid(Integer caseworkerid) {
+		this.caseworkerid = caseworkerid;
+	}
+
+	public Integer getPosterid() {
+		return posterid;
+	}
+	
+	public void setPosterid(Integer posterid) {
+		this.posterid = posterid;
+	}
+
 }

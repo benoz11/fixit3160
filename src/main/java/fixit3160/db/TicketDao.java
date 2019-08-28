@@ -60,8 +60,8 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 	 */
 	@Query("SELECT t FROM Ticket t WHERE "
 			+ "(Select u.role FROM User u WHERE u.username = ?#{ principal?.username }) = 'Manager'"
-			+ " OR t.posterid = (SELECT u FROM User u WHERE u.username = ?#{ principal?.username })"
-			+ " OR t.caseworkerid = (SELECT u FROM User u WHERE u.username = ?#{ principal?.username })")
+			+ " OR t.poster = (SELECT u FROM User u WHERE u.username = ?#{ principal?.username })"
+			+ " OR t.caseworker = (SELECT u FROM User u WHERE u.username = ?#{ principal?.username })")
 	public ArrayList<Ticket> findForCurrentUser();
 
 	
