@@ -3,36 +3,36 @@ function orderResults(columnIndex) {
     var rows = table.rows;
     var direction = "ascending";
 
+    console.log("Sorting column " + columnIndex);
+
     var requiresSort = true;
     var requiresSwap = false;
     var i;
-    var inOrderInitially = false;
+    var inOrderInitially = true;
 
     // basic bubble sort algorithm
     do {
-        requiresSwap = false;
         requiresSort = false;
-        for (i = 1; i < rows.length-1; i++) {
+        rows = table.rows;
+        for (i = 1; i < rows.length; i++) {
+            requiresSwap = false;
             var data = rows[i].getElementsByTagName("td")[columnIndex];
             var previousRowsData = rows[i-1].getElementsByTagName("td")[columnIndex];
-            if (data.textContent.toLocaleUpperCase() <= previousRowsData.textContent.toLocaleUpperCase() && direction == "ascending") {
+            if (data.textContent.toLocaleUpperCase() < previousRowsData.textContent.toLocaleUpperCase() && direction == "ascending") {
                 requiresSwap = true;
-                console.log("Trying to swap, ascending order");
+                break;
             } else if (data.textContent.toLocaleUpperCase() > previousRowsData.textContent.toLocaleUpperCase() && direction == "descending") {
                 requiresSwap = true;
-                console.log("Trying to swap, descending order");
-            }
-
-            if (requiresSwap && direction == "ascending") {
-                console.log("Performing a swap for " + i + " and " + (i-1));
-                rows[i].parentNode.insertBefore(rows[i], rows[i-1]);
-                requiresSort = true;
-                inOrderInitially = false;
+                break;
             }
         }
+        if (requiresSwap) {
+            rows[i].parentNode.insertBefore(rows[i], rows[i-1]);
+            requiresSort = true;
+            inOrderInitially = false;
+        }
 
-        if (inOrderInitially) {
-            console.log("Already in ascending order, swapping direction");
+        if (inOrderInitially && direction == "ascending") {
             requiresSort = true;
             inOrderInitially = true;
             direction = "descending";
