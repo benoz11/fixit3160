@@ -4,6 +4,7 @@
 <head>
 	<jsp:include page="fragments/header.jsp" />
 	<script src="/resources/js/searchScript.js"></script>
+	<script src="/resources/js/orderingScript.js"></script>
 	<title>FixIT Tickets</title>
 </head>
 <body>
@@ -16,12 +17,12 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Name</th>
-				<th>Description</th>
-				<th>State</th>
-				<th>Posted By</th>
-				<th>Assigned To</th>
-				<th>Date Created</th>
+				<th onclick="orderResults(0)">Name</th>
+				<th onclick="orderResults(1)">Description</th>
+				<th onclick="orderResults(2)">State</th>
+				<th onclick="orderResults(3)">Posted By</th>
+				<th onclick="orderResults(4)">Assigned To</th>
+				<th onclick="orderResults(5)">Date Created</th>
 			</tr>
 		</thead>
 		<tbody id = "ticketTableBody">
