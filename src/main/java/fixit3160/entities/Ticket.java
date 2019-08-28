@@ -149,6 +149,11 @@ public class Ticket implements Serializable {
 
 	public void setPrioritylevel(String prioritylevel) {
 		this.prioritylevel = prioritylevel;
+		//calculate the priorityPoints and set here
+	}
+
+	public String getPriorityPoints() {
+		return priorityPoints;
 	}*/
 
 	public Integer getCaseworkerid() {

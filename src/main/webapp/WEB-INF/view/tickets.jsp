@@ -12,9 +12,7 @@
 	<h1>Tickets</h1>
 	<form id="searchForm">
 		Search:<input type="text" name="searchTerm" value="" onkeyup = "search()" />
-	</form>
-
-	<table class="table table-striped">
+	</form><table class="table table-striped">
 		<thead>
 			<tr>
 				<th onclick="orderResults(0)">Name</th>
@@ -25,7 +23,7 @@
 				<th onclick="orderResults(5)">Date Created</th>
 			</tr>
 		</thead>
-		<tbody id = "ticketTableBody">
+		<tbody id = "tableBody">
 			<c:forEach items="${tickets}" var="ticket">
 				<<tr class="clickable-row" data-href="/tickets/${ticket.id}">
 					<td><c:out value="${ticket.name}" /></td>
@@ -34,14 +32,12 @@
 					<td><c:out value="${ticket.poster.name}" /></td>
 					<td><c:out value="${ticket.caseworker.name}" /></td>
 					<td><c:out value="${ticket.created}" /></td>
+
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-	<form method="get" action="/ticketwithdescription">
-		<button type="submit" form="orderForm" name="orderBy" value="asc">Order A-Z</button>
-		<button type="submit" form="orderForm" name="orderBy" value="desc">Order Z-A</button>
-	</form>
+
 <jsp:include page="fragments/footer.jsp" />
 </body>
 </html>
