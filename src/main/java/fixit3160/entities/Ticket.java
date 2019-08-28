@@ -13,6 +13,7 @@ package fixit3160.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -72,8 +73,8 @@ public class Ticket implements Serializable {
      * Defines a OneToMany relationship with the comments table
      * One ticket can have many comments associated with it
      */
-    //@OneToMany(mappedBy="tickets")
-    //private ArrayList<Comment> comments;
+    @OneToMany(mappedBy="ticketid")
+    private List<Comment> comments = new ArrayList<Comment>();
 /*
 	@Column(name = "priorityLevel")
 	@Basic
@@ -165,6 +166,14 @@ public class Ticket implements Serializable {
 	
 	public void setPosterid(Integer posterid) {
 		this.posterid = posterid;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
 	}
 
 }

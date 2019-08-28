@@ -49,6 +49,10 @@ public class Comment implements Serializable {
     @Column(name = "created")
     @Basic(optional = false)
     private String created;
+    
+    @OneToOne
+    @JoinColumn(name="")
+    private User poster;
 
 	public Integer getId() {
 		return id;

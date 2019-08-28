@@ -28,6 +28,14 @@
 	</table>
 	
 	<!-- Comments section here -->
+	<h1>Comments</h1>
+	<div class="comments">
+		<c:forEach items="${ticket.comments}" var="comment">
+			<div class="comment">
+				<p>This is a comment</p>
+			</div>
+		</c:forEach>
+	</div>
 	
 	<a href="/tickets">Back</a>
 	
