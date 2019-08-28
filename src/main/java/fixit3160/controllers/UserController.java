@@ -83,9 +83,9 @@ public class UserController {
 	@PostMapping("/users/{id}/edit/submit")
 	public ModelAndView submitUserEdit(@PathVariable int id, @RequestParam(value="name") String name,
 			@RequestParam(value="role") String role, @RequestParam(value="username") String username) {
-		Optional<User> DBUser = userDao.findById(id);
-		if (DBUser.isPresent()) { //if the user exists in the DB
-			User user = DBUser.get();
+		Optional<User> dbUser = userDao.findById(id);
+		if (dbUser.isPresent()) { //if the user exists in the DB
+			User user = dbUser.get();
 			user.setName(name);
 			user.setRole(role);
 			user.setUsername(username);

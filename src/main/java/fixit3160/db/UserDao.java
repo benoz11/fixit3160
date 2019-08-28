@@ -32,8 +32,7 @@ public interface UserDao extends CrudRepository<User, Long> {
 	@PreAuthorize ("hasRole('Manager')")
 	public ArrayList<User> findAll();
 	
-	@PreAuthorize ("hasRole('Manager')")
-	public User findByUsername(String username);
+	public Optional<User> findByUsername(String username);
 	
 	@PreAuthorize ("hasRole('Manager')")
 	public Optional<User> findById(int id);

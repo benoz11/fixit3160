@@ -12,7 +12,8 @@
 	<h1>Tickets</h1>
 	<form id="searchForm">
 		Search:<input type="text" name="searchTerm" value="" onkeyup = "search()" />
-	</form><table class="table table-striped">
+	</form>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th onclick="orderResults(0)">Name</th>
@@ -25,7 +26,7 @@
 		</thead>
 		<tbody id = "tableBody">
 			<c:forEach items="${tickets}" var="ticket">
-				<<tr class="clickable-row" data-href="/tickets/${ticket.id}">
+				<tr class="clickable-row" data-href="/tickets/${ticket.id}">
 					<td><c:out value="${ticket.name}" /></td>
 					<td><c:out value="${ticket.description}" /></td>
 					<td><c:out value="${ticket.state}" /></td>

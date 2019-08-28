@@ -13,6 +13,7 @@ package fixit3160.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -65,9 +66,9 @@ public class Ticket implements Serializable {
     @Basic(optional = false)
     private String name;
 
-    @Column(name = "created")
-    @Basic(optional = false)
-    private String created;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created", insertable=false)
+    private Date created;
     
     /*
      * Defines a OneToMany relationship with the comments table
@@ -136,11 +137,11 @@ public class Ticket implements Serializable {
 		this.name = name;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
-	public void setCreated(String created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 /*

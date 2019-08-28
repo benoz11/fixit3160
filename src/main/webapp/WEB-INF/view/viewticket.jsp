@@ -38,6 +38,16 @@
 		</c:forEach>
 	</div>
 	
+	<!-- Post a comment -->
+	<h3>Post your comment</h3>
+	<div class="comment-post">
+		<form action="/tickets/${ticket.id}/postcomment" method="POST">
+			<textarea name="contents" id="contents" cols="40" rows="5" required></textarea>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<button type="submit" class="btn btn-primary">Post Your Comment</button>
+		</form>
+	</div>
+	
 	<a href="/tickets">Back</a>
 	
 <jsp:include page="fragments/footer.jsp" />

@@ -29,4 +29,18 @@ import fixit3160.entities.User;
 public interface CommentDao extends CrudRepository<Comment, Long> {
 	@Transactional
 	public ArrayList<Comment> findAll();
+	
+	/*
+	 * Adding a new entry to DB
+	 * -Create new Object
+	 * -Set some values on it
+	 * -call the save method
+	 *
+	 * Updating a DB entry
+	 * -Create object by querying by id
+	 * -change some values on it
+	 * -call the save method
+	 */
+	@Transactional
+	public <S extends Comment> S save(S comment);
 }

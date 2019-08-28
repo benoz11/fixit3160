@@ -12,6 +12,7 @@
 package fixit3160.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.*;
 
@@ -46,9 +47,9 @@ public class Comment implements Serializable {
     @Basic(optional = false)
     private String contents;
 
-    @Column(name = "created")
-    @Basic(optional = false)
-    private String created;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created", insertable=false)
+    private Date created;
     
     @OneToOne
     @JoinColumn(name="posterid", updatable=false, insertable=false)
@@ -86,11 +87,11 @@ public class Comment implements Serializable {
 		this.contents = contents;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
-	public void setCreated(String created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 

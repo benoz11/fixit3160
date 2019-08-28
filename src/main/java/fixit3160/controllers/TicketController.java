@@ -17,15 +17,18 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import fixit3160.db.CommentDao;
 import fixit3160.db.TicketDao;
 import fixit3160.db.UserDao;
+import fixit3160.entities.Comment;
 import fixit3160.entities.Ticket;
 import fixit3160.entities.User;
 
@@ -65,6 +68,25 @@ public class TicketController {
 			mvc.addObject("ticket", ticket.get());
 			return mvc;
 		}
+		return new ModelAndView("redirect:/tickets");
+	}
+	
+	@PostMapping("/tickets/{id}/postcomment")
+	public ModelAndView postComment(@PathVariable int id, @RequestParam(value="contents") String contents) {
+		Optional<Ticket> dbTicket = ticketDao.findById(id); 							//find ticket by id
+		if (dbTicket.isPresent()) {														//if ticket exists
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //principal is the currently logged in Spring Security user object
+			Optional<User> dbposter = userDao.findByUsername(((UserDetails)principal).getUsername()); //find user by display name (currently all I can get from spring security)
+			if (dbposter.isPresent()) {													//if user exists
+				User poster = dbposter.get();											//get the user object
+				Comment newcomment = new Comment();										//create a new comment
+				newcomment.setContents(contents);										//set its values...
+				newcomment.setTicketid(id);
+				newcomment.setPosterid(poster.getId());
+				commentDao.save(newcomment);											//save comment to db
+				return new ModelAndView("redirect:/tickets/"+id);						//reload ticket page
+			}
+		} //ticket or user not found
 		return new ModelAndView("redirect:/tickets");
 	}
 	
