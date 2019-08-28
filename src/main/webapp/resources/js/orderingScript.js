@@ -1,5 +1,5 @@
 function orderResults(columnIndex) {
-    var table = document.getElementById("ticketTableBody");
+    var table = document.getElementById("tableBody");
     var rows = table.rows;
     var direction = "ascending";
 
