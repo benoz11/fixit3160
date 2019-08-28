@@ -51,7 +51,7 @@ public class Comment implements Serializable {
     private String created;
     
     @OneToOne
-    @JoinColumn(name="")
+    @JoinColumn(name="posterid", updatable=false, insertable=false)
     private User poster;
 
 	public Integer getId() {
@@ -92,6 +92,14 @@ public class Comment implements Serializable {
 
 	public void setCreated(String created) {
 		this.created = created;
+	}
+
+	public User getPoster() {
+		return poster;
+	}
+
+	public void setPoster(User poster) {
+		this.poster = poster;
 	}
 
 }

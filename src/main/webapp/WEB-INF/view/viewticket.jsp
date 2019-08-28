@@ -32,7 +32,8 @@
 	<div class="comments">
 		<c:forEach items="${ticket.comments}" var="comment">
 			<div class="comment">
-				<p>This is a comment</p>
+				<div class="comment-poster">${comment.poster.name}:</div>
+				<div class="comment-contents">${comment.contents}</div>
 			</div>
 		</c:forEach>
 	</div>
