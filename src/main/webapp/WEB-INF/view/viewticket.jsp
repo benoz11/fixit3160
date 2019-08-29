@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
-<html>
+<http>
 <head>
 	<jsp:include page="fragments/header.jsp" />
 	<title>FixIT Viewing Ticket</title>
@@ -26,6 +26,7 @@
 			</form></td></tr>
 		</tbody>
 	</table>
+	<jsp:include page="fragments/ticketbuttons.jsp" />
 	
 	<!-- Comments section here -->
 	<h1>Comments</h1>

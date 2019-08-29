@@ -17,11 +17,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.spel.spi.EvaluationContextExtension;
+import org.springframework.security.access.expression.SecurityExpressionOperations;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
+import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
+import org.springframework.security.web.access.expression.WebSecurityExpressionRoot;
 
 /**
  * @author Benjamin McDonnell (c3166457)
@@ -77,5 +83,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
   @Bean
   public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
       return new SecurityEvaluationContextExtension();
+  }
+  
+  /**
+   * Spring Security automatically adds ROLE_ to the start of all User roles
+   * This redefines it to NOT do that - Just use the role name as it appears in DB in the jsp
+   * eg: <sec:authorize access="hasRole('Caseworker')">This will only be visible to Caseworkers</sec:authorize>
+   */
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+      web.expressionHandler(new DefaultWebSecurityExpressionHandler() {
+          @Override
+          protected SecurityExpressionOperations createSecurityExpressionRoot(Authentication authentication, FilterInvocation fi) {
+              WebSecurityExpressionRoot root = (WebSecurityExpressionRoot) super.createSecurityExpressionRoot(authentication, fi);
+              root.setDefaultRolePrefix(""); //remove the prefix ROLE_
+              return root;
+          }
+      });
   }
 }
