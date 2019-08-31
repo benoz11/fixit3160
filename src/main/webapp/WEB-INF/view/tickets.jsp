@@ -22,6 +22,8 @@
 				<th onclick="orderResults(3)">Posted By</th>
 				<th onclick="orderResults(4)">Assigned To</th>
 				<th onclick="orderResults(5)">Date Created</th>
+				<th onclick="orderResults(6)">Priority Level</th>
+				<th onclick="orderResults(7)">Priority Points</th>
 			</tr>
 		</thead>
 		<tbody id = "tableBody">
@@ -33,6 +35,8 @@
 					<td><c:out value="${ticket.poster.name}" /></td>
 					<td><c:out value="${ticket.caseworker.name}" /></td>
 					<td><c:out value="${ticket.created}" /></td>
+                    <td><c:out value="${ticket.prioritylevel}" /></td>
+                    <td><c:out value="${ticket.prioritypoints}" /></td>
 
 				</tr>
 			</c:forEach>

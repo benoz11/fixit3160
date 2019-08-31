@@ -77,11 +77,18 @@ public class Ticket implements Serializable {
     @OneToMany(mappedBy="ticketid")
     @OrderBy("id")
     private List<Comment> comments = new ArrayList<Comment>();
-/*
-	@Column(name = "priorityLevel")
-	@Basic
+
+	@Column(name = "prioritylevel")
+	@Basic(optional = true)
 	private String prioritylevel;
-*/
+
+
+	@Column(name = "prioritypoints")
+	@Basic(optional = true)
+	private Integer prioritypoints;
+
+
+
 	/*
      * From other tables
      */
@@ -145,19 +152,19 @@ public class Ticket implements Serializable {
 	public void setCreated(Date created) {
 		this.created = created;
 	}
-/*
-	public String getPrioritylevel() {
-		return prioritylevel;
+
+	public String getPrioritylevel() { return prioritylevel; }
+
+
+	public void setPrioritylevel(String prioritylevel) { this.prioritylevel = prioritylevel; }
+
+
+	public int getPrioritypoints() {
+		return prioritypoints;
 	}
 
-	public void setPrioritylevel(String prioritylevel) {
-		this.prioritylevel = prioritylevel;
-		//calculate the priorityPoints and set here
-	}
+	public void setPriorityPoints(int prioritypoints) { this.prioritypoints = prioritypoints; }
 
-	public String getPriorityPoints() {
-		return priorityPoints;
-	}*/
 
 	public Integer getCaseworkerid() {
 		return caseworkerid;
