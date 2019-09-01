@@ -71,6 +71,64 @@ public class TicketController {
 		return new ModelAndView("redirect:/tickets");
 	}
 	
+	/*
+	 * Related to ticket manipulation or state changing
+	 */
+	//TODO: @Kundayi
+	@PostMapping("/tickets/{id}/delete")
+	public ModelAndView deleteTicket(@PathVariable int id) {
+		
+		return new ModelAndView("redirect:/tickets");
+	}
+	//TODO: @Kundayi
+	@PostMapping("/tickets/{id}/edit")
+	public ModelAndView editTicket(@PathVariable int id) {
+		
+		return new ModelAndView("redirect:/tickets");
+	}
+	
+	@PostMapping("/tickets/{id}/close")
+	public ModelAndView closeTicket(@PathVariable int id) {
+		return setState(id, "Closed");
+	}
+	
+	@PostMapping("/tickets/{id}/assign")
+	public ModelAndView assignTicket(@PathVariable int id) {
+		//load the ticket assigning page
+		return new ModelAndView("assignCaseworker");
+	}
+	
+	@PostMapping("/tickets/{id}/assign/submit")
+	public ModelAndView submitAssignTicket(@PathVariable int id) {
+		//Perform some logic that makes the ticket be assigned to a caseworker
+		//if ticket state was open, make it In Progress instead
+		//return to view the ticket
+		return new ModelAndView("redirect:/tickets/"+id);
+	}
+	
+	@PostMapping("/tickets/{id}/complete")
+	public ModelAndView completeTicket(@PathVariable int id) {
+		return setState(id, "Completed");
+	}
+	
+	@PostMapping("/tickets/{id}/reject")
+	public ModelAndView rejectTicket(@PathVariable int id) {
+		return setState(id, "In Progress");
+	}
+	
+	@PostMapping("/tickets/{id}/kb")
+	public ModelAndView kbTicket(@PathVariable int id) {
+		return setState(id, "Knowledge Base");
+	}
+	
+	@PostMapping("/tickets/{id}/open")
+	public ModelAndView openTicket(@PathVariable int id) {
+		return setState(id, "Open");
+	}
+	
+	/*
+	 * Comments related mappings
+	 */
 	@PostMapping("/tickets/{id}/postcomment")
 	public ModelAndView postComment(@PathVariable int id, @RequestParam(value="contents") String contents) {
 		Optional<Ticket> dbTicket = ticketDao.findById(id); 							//find ticket by id
@@ -115,6 +173,32 @@ public class TicketController {
 		}
 		return new ModelAndView("redirect:/tickets");
 	}
+	
+	/*
+	 * Helper functions
+	 */
+	
+	/**
+	 * Set the state for ticket with this id, return model and view for redirect
+	 * @param id
+	 * @param newstate
+	 * @return
+	 */
+	private ModelAndView setState(int id, String newstate) {
+		Optional<Ticket> dbTicket = ticketDao.findById(id);
+		if (dbTicket.isPresent()) {
+			Ticket ticket = dbTicket.get();  //get the ticket from the optional object
+			ticket.setState(newstate);       //close ticket
+			ticket = ticketDao.save(ticket); //save the changes and reassign the ticket ref to the newly saved ticket
+			
+			return new ModelAndView("redirect:/tickets/"+id);
+		}
+		return new ModelAndView("redirect:/tickets");
+	}
+	
+	/*
+	 * Outdated or for education purposes
+	 */
 	
 	//add ticket to database
 	//get info from form

@@ -75,6 +75,13 @@
 				<!--  only manager can comment -->
 			</sec:authorize>
 		</c:when>
+		
+		<c:when test = "${ticket.state eq 'Knowledge Base'}">
+			<sec:authorize access="hasRole('Manager')">
+				<button type="button" name="completeTicketButton">Remove from Knowledge Base</button>
+				<!--  only manager can comment -->
+			</sec:authorize>
+		</c:when>
 	
 	</c:choose>
 </form>

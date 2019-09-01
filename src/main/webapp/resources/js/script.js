@@ -62,37 +62,39 @@ function submitCommentEdit(commentid) {
  *	The ticketbuttons has just the one form wrapped around the section
  *	Javascript is used to change the mapping for the form based on the button clicked
  */
+var actionpath = window.location.pathname;
+if (actionpath.endsWith("/")) {actionpath = actionpath.slice(0,-1);}
 
 $('button[name="deleteTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', window.location.pathname + '/delete');
+	$('#buttonForm').attr('action', actionpath + '/delete');
 	$('#buttonForm').submit();
 });
 $('button[name="closeTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', window.location.pathname + '/close');
+	$('#buttonForm').attr('action', actionpath + '/close');
 	$('#buttonForm').submit();
 });
 $('button[name="assignTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', window.location.pathname + '/assign');
+	$('#buttonForm').attr('action', actionpath + '/assign');
 	$('#buttonForm').submit();
 });
 $('button[name="editTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', window.location.pathname + '/edit');
+	$('#buttonForm').attr('action', actionpath + '/edit');
 	$('#buttonForm').submit();
 });
 $('button[name="completeTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', window.location.pathname + '/complete');
+	$('#buttonForm').attr('action', actionpath + '/complete');
 	$('#buttonForm').submit();
 });
 $('button[name="rejectTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', window.location.pathname + '/reject');
+	$('#buttonForm').attr('action', actionpath + '/reject');
 	$('#buttonForm').submit();
 });
 $('button[name="kbTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', window.location.pathname + '/kb');
+	$('#buttonForm').attr('action', actionpath + '/kb');
 	$('#buttonForm').submit();
 });
 $('button[name="openTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', window.location.pathname + '/open');
+	$('#buttonForm').attr('action', actionpath + '/open');
 	$('#buttonForm').submit();
 });
 

@@ -65,7 +65,6 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 			+ " OR t.caseworker = (SELECT u FROM User u WHERE u.username = ?#{ principal?.username })")
 	public ArrayList<Ticket> findForCurrentUser();
 
-	
 	public Optional<Ticket> findById(int id);
 
 	/* Sorting alphabetically, both ascending and descending */
