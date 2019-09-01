@@ -32,6 +32,10 @@ if(location.pathname.match(/\/users\/\d+\/edit/)) {
 	}
 }
 
+/*
+ * Hiding and showing Comment related buttons on the ticket page
+ */
+
 var oldval;
 function editComment(commentid) {
 	window.oldval = document.getElementById("commentcontents"+commentid).value;
@@ -53,3 +57,42 @@ function cancelEditComment(commentid) {
 function submitCommentEdit(commentid) {
 	document.getElementById("submitcommenteditform"+commentid).submit();
 }
+
+/*
+ *	The ticketbuttons has just the one form wrapped around the section
+ *	Javascript is used to change the mapping for the form based on the button clicked
+ */
+
+$('button[name="deleteTicketButton"]').click(function(){
+	$('#buttonForm').attr('action', window.location.pathname + '/delete');
+	$('#buttonForm').submit();
+});
+$('button[name="closeTicketButton"]').click(function(){
+	$('#buttonForm').attr('action', window.location.pathname + '/close');
+	$('#buttonForm').submit();
+});
+$('button[name="assignTicketButton"]').click(function(){
+	$('#buttonForm').attr('action', window.location.pathname + '/assign');
+	$('#buttonForm').submit();
+});
+$('button[name="editTicketButton"]').click(function(){
+	$('#buttonForm').attr('action', window.location.pathname + '/edit');
+	$('#buttonForm').submit();
+});
+$('button[name="completeTicketButton"]').click(function(){
+	$('#buttonForm').attr('action', window.location.pathname + '/complete');
+	$('#buttonForm').submit();
+});
+$('button[name="rejectTicketButton"]').click(function(){
+	$('#buttonForm').attr('action', window.location.pathname + '/reject');
+	$('#buttonForm').submit();
+});
+$('button[name="kbTicketButton"]').click(function(){
+	$('#buttonForm').attr('action', window.location.pathname + '/kb');
+	$('#buttonForm').submit();
+});
+$('button[name="openTicketButton"]').click(function(){
+	$('#buttonForm').attr('action', window.location.pathname + '/open');
+	$('#buttonForm').submit();
+});
+
