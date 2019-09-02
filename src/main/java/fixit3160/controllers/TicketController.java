@@ -87,6 +87,15 @@ public class TicketController {
 		long dateDiff = date2.getTime() - date1.getTime();
 		return tUnit.convert(dateDiff, TimeUnit.DAYS);
 	}
+
+	@GetMapping("/knowledgeBase")
+	public ModelAndView knowledgebase() {
+		ModelAndView mvc = new ModelAndView("knowledgebase");
+		ArrayList<Ticket> knowledgeBaseTickets = ticketDao.findInKnowledgeBase();
+		mvc.addObject("knowledgeBaseTickets", knowledgeBaseTickets);
+
+		return mvc;
+	}
 	
 	@GetMapping("/tickets/{id}")
 	public ModelAndView viewTicket(@PathVariable int id) {

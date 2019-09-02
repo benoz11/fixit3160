@@ -19,7 +19,6 @@ import javax.transaction.Transactional;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Repository;
 
@@ -28,7 +27,7 @@ import fixit3160.entities.Ticket;
 /**
  * @author Benjamin McDonnell (c3166457)
  * Handles database access for the public.ticket database
- * Note: 
+ * Note:
  * 		We do NOT need to provide implementation for these!
  * 		Hibernate will automatically wire these up to our db
  * 		Just specify the return/param type and use the given naming conventions, eg
@@ -39,22 +38,22 @@ import fixit3160.entities.Ticket;
  *    		findDistinctByColumname
  *    		deleteByID
  *    		public ArrayList<Comments> findByTicketId(int id);
- *    
+ *
  *    	See: https://www.concretepage.com/spring-boot/spring-boot-crudrepository-example
  *    		 https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html
  *    		 https://www.logicbig.com/tutorials/spring-framework/spring-data/query-advance-like-expression.html
- *    
+ *
  */
 
 @ComponentScan
 @Repository
 public interface TicketDao extends CrudRepository<Ticket, Long> {
-	
+
 	public ArrayList<Ticket> findByNameContaining(String name); //consider some kind of fuzzysearch in future
-	
+
 	@PreAuthorize("hasRole('Manager'")
 	public ArrayList<Ticket> findAll();
-	
+
 	/**
 	 * If user is manager get all tickets, else get tickets where user.id = posterid OR caseworkerid
 	 * @return
@@ -64,6 +63,15 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 			+ " OR t.poster = (SELECT u FROM User u WHERE u.username = ?#{ principal?.username })"
 			+ " OR t.caseworker = (SELECT u FROM User u WHERE u.username = ?#{ principal?.username })")
 	public ArrayList<Ticket> findForCurrentUser();
+
+	/**
+	 * Returns all tickets that have a 'knowledge base' state. This is intended for the knowledge base page.
+	 * This should return the same result for any user.
+	 *
+	 * @return ArrayList of Ticket objects
+	 */
+	@Query("SELECT t FROM Ticket t WHERE t.state = 'Knowledge Base'")
+	public ArrayList<Ticket> findInKnowledgeBase();
 
 	public Optional<Ticket> findById(int id);
 
@@ -80,7 +88,7 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 	@Query ("SELECT t FROM Ticket t WHERE "
 			+ "t.description LIKE '%keyboard%'")
 	public ArrayList<Ticket> findKeyboard();
-	
+
 	public ArrayList<Ticket> findByDescriptionContaining(String containing);
 
 	/* modified query that searches both name and description*/
@@ -90,7 +98,7 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 			+ "t.description LIKE '%testing%' OR "
 			+ "t.description LIKE '%testing%'")
 	public ArrayList<Ticket> findSearchTerm(String searchTerm);
-	
+
 	public ArrayList<Ticket> findAllByOrderByDescriptionAsc();
 	public ArrayList<Ticket> findAllByOrderByDescriptionDesc();
 

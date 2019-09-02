@@ -8,7 +8,7 @@
  * When we click on something of class 'clickable-row', direct us to the url defined in its data-href value
  * Usage: <tr class="clickable-row" data-href="/users/${user.id}"><td>click me</td></tr>
  */
-if(location.pathname.match(/\/users/) ||  location.pathname.match(/\/tickets/) || location.pathname.match(/\/articles/)) {
+if(location.pathname.match(/\/users/) ||  location.pathname.match(/\/tickets/) || location.pathname.match(/\/knowledgeBase/)) {
 	$(document).ready(function($) {
 	    $(".clickable-row").click(function() { //
 	        window.document.location.href = $(this).data("href"); //take us to the data-href attached to this object
