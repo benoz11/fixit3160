@@ -1,3 +1,4 @@
+<%@ page import="java.time.LocalDateTime" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
@@ -13,6 +14,8 @@
 	<form id="searchForm">
 		Search:<input type="text" name="searchTerm" value="" onkeyup = "search()" />
 	</form>
+	<% out.println(LocalDateTime.now());%>
+
 	<table class="table table-striped">
 		<thead>
 			<tr>

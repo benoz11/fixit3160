@@ -11,8 +11,14 @@
  */
 package fixit3160.controllers;
 
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -56,7 +62,30 @@ public class TicketController {
 		ModelAndView mvc = new ModelAndView("tickets");
 		ArrayList<Ticket> tickets = ticketDao.findForCurrentUser();
 		mvc.addObject("tickets", tickets);
+		ArrayList<Ticket> allTickets = ticketDao.findAll();
+
+		LocalDateTime localDateTime = LocalDateTime.now(Clock.systemUTC());
+		for(Ticket ticket : allTickets) {
+			if (ticket.getCreated().equals(localDateTime) == false) {
+				if (ticket.getPrioritylevel().equals("Low")) {
+					ticket.setPriorityPoints(ticket.getPrioritypoints() * 2); //getDateDifference(Date.from(localDateTime.atZone),ticket.getCreated(),TimeUnit.DAYS));
+				} else if (ticket.getPrioritylevel().equals("Medium")) {
+					ticket.setPriorityPoints(ticket.getPrioritypoints() * 3);
+				} else if (ticket.getPrioritylevel().equals("Medium")) {
+					ticket.setPriorityPoints(ticket.getPrioritypoints() * 5);
+				} else {
+					ticket.setPriorityPoints(ticket.getPrioritypoints() * 8);
+				}
+			}
+		}
+
+		ticketDao.saveAll(allTickets);
 		return mvc;
+	}
+
+	public long getDateDifference(Date date1, Date date2, TimeUnit tUnit) {
+		long dateDiff = date2.getTime() - date1.getTime();
+		return tUnit.convert(dateDiff, TimeUnit.DAYS);
 	}
 	
 	@GetMapping("/tickets/{id}")
