@@ -60,10 +60,8 @@ public class TicketController {
 	@GetMapping("/tickets")
 	public ModelAndView tickets() {
 		ModelAndView mvc = new ModelAndView("tickets");
-		ArrayList<Ticket> tickets = ticketDao.findForCurrentUser();
-		mvc.addObject("tickets", tickets);
+		
 		ArrayList<Ticket> allTickets = ticketDao.findAll();
-
 		LocalDateTime localDateTime = LocalDateTime.now(Clock.systemUTC());
 		for(Ticket ticket : allTickets) {
 			if (ticket.getCreated().equals(localDateTime) == false) {
@@ -78,6 +76,9 @@ public class TicketController {
 				}
 			}
 		}
+		
+		ArrayList<Ticket> tickets = ticketDao.findForCurrentUser(); //moved to after priority edits so they reflect the updates
+		mvc.addObject("tickets", tickets);
 
 		ticketDao.saveAll(allTickets);
 		return mvc;
@@ -123,16 +124,32 @@ public class TicketController {
 	
 	@PostMapping("/tickets/{id}/assign")
 	public ModelAndView assignTicket(@PathVariable int id) {
-		//load the ticket assigning page
-		return new ModelAndView("assignCaseworker");
+		ModelAndView mvc = new ModelAndView("assigncaseworker");
+		Optional<Ticket> ticket = ticketDao.findById(id);
+		if (ticket.isPresent()) {
+			mvc.addObject("ticket",ticket.get());
+			mvc.addObject("caseworkers", userDao.findAllByRole("Caseworker"));
+			return mvc;
+		}
+		return new ModelAndView("redirect:/tickets");
+		
 	}
-	
+	//TODO: @Benjamin McDonnell
 	@PostMapping("/tickets/{id}/assign/submit")
-	public ModelAndView submitAssignTicket(@PathVariable int id) {
-		//Perform some logic that makes the ticket be assigned to a caseworker
-		//if ticket state was open, make it In Progress instead
-		//return to view the ticket
-		return new ModelAndView("redirect:/tickets/"+id);
+	public ModelAndView submitAssignTicket(@PathVariable int id, @RequestParam(value="caseworkerid") int caseworkerid) {
+		Optional<Ticket> dbTicket = ticketDao.findById(id);
+		if (dbTicket.isPresent()) {
+			Optional<User> dbUser = userDao.findById(caseworkerid);
+			if (dbUser.isPresent()) {
+				Ticket ticket = dbTicket.get();
+				User user = dbUser.get();
+				ticket.setCaseworker(user); //Is it sufficient to just change the Caseworker col and the id will auto change???
+				if(ticket.getState().equals("Open")) {ticket.setState("In Progress");}
+				ticketDao.save(ticket);
+				return new ModelAndView("redirect:/tickets/"+id);
+			}
+		}
+		return new ModelAndView("redirect:/tickets/");
 	}
 	
 	@PostMapping("/tickets/{id}/complete")
