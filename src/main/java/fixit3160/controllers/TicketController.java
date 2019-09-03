@@ -113,15 +113,33 @@ public class TicketController {
 	/*
 	 * Related to ticket manipulation or state changing
 	 */
-	//TODO: @Kundayi
+	//TODO: @Kundayi //Deletes the ticket
 	@PostMapping("/tickets/{id}/delete")
 	public ModelAndView deleteTicket(@PathVariable int id) {
 		
 		return new ModelAndView("redirect:/tickets");
 	}
-	//TODO: @Kundayi
+	//TODO: @Kundayi //Takes you to the edit a ticket page
 	@PostMapping("/tickets/{id}/edit")
 	public ModelAndView editTicket(@PathVariable int id) {
+		
+		return new ModelAndView("redirect:/tickets");
+	}
+	//TODO: @Kundayi //Submits the edits
+	@PostMapping("/tickets/{id}/edit/submit")
+	public ModelAndView submitEditTicket(@PathVariable int id) {
+		
+		return new ModelAndView("redirect:/tickets");
+	}
+	//TODO: @Kundayi //Takes you to the create a ticket page
+	@GetMapping("/tickets/create")
+	public ModelAndView createTicket() {
+		
+		return new ModelAndView("redirect:/tickets");
+	}
+	//TODO: @Kundayi //submits the ticket
+	@GetMapping("/tickets/create/submit")
+	public ModelAndView submitCreateTicket() {
 		
 		return new ModelAndView("redirect:/tickets");
 	}
@@ -143,7 +161,7 @@ public class TicketController {
 		return new ModelAndView("redirect:/tickets");
 		
 	}
-	//TODO: @Benjamin McDonnell
+
 	@PostMapping("/tickets/{id}/assign/submit")
 	public ModelAndView submitAssignTicket(@PathVariable int id, @RequestParam(value="caseworkerid") int caseworkerid) {
 		Optional<Ticket> dbTicket = ticketDao.findById(id);
@@ -152,7 +170,7 @@ public class TicketController {
 			if (dbUser.isPresent()) {
 				Ticket ticket = dbTicket.get();
 				User user = dbUser.get();
-				ticket.setCaseworker(user); //Is it sufficient to just change the Caseworker col and the id will auto change???
+				ticket.setCaseworker(user); //It is sufficient
 				if(ticket.getState().equals("Open")) {ticket.setState("In Progress");}
 				ticketDao.save(ticket);
 				return new ModelAndView("redirect:/tickets/"+id);
@@ -185,7 +203,7 @@ public class TicketController {
 	 * Comments related mappings
 	 */
 	@PostMapping("/tickets/{id}/postcomment")
-	public ModelAndView postComment(@PathVariable int id, @RequestParam(value="contents") String contents) {
+	public ModelAndView postComment(@PathVariable int id, @RequestParam(value="contents") String contents, @RequestParam(value="resolution") Optional<String> resolution) {
 		Optional<Ticket> dbTicket = ticketDao.findById(id); 							//find ticket by id
 		if (dbTicket.isPresent()) {														//if ticket exists
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //principal is the currently logged in Spring Security user object
@@ -193,10 +211,18 @@ public class TicketController {
 			if (dbposter.isPresent()) {													//if user exists
 				User poster = dbposter.get();											//get the user object
 				Comment newcomment = new Comment();										//create a new comment
+				
 				newcomment.setContents(contents);										//set its values...
 				newcomment.setTicketid(id);
 				newcomment.setPosterid(poster.getId());
 				commentDao.save(newcomment);											//save comment to db
+				
+				if(resolution.isPresent()) {											//if we have ticked the post as resolution box
+					Ticket ticket = dbTicket.get();
+					ticket.setState("Resolved");
+					ticketDao.save(ticket);
+				}
+				
 				return new ModelAndView("redirect:/tickets/"+id);						//reload ticket page
 			}
 		} //ticket or user not found

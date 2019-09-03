@@ -1,4 +1,5 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page session="true"%>
 <http>
 <head>
@@ -19,11 +20,11 @@
 			<tr><td>Assigned To</td><td><c:out value="${ticket.caseworker.name}" /></td></tr>
 			<tr><td>Description</td><td><c:out value="${ticket.description}" /></td></tr>
 			<tr><td>Created</td><td><c:out value="${ticket.created}" /></td></tr>
-			<tr><td>Edit</td><td><a href="/tickets/${ticket.id}/edit">Edit Ticket</a></td></tr>
+			<!--  <tr><td>Edit</td><td><a href="/tickets/${ticket.id}/edit">Edit Ticket</a></td></tr>
 			<tr><td>Delete</td><td>
 			<form action="/tickets/${ticket.id}/delete" method="POST" class="no-margin-block-end"><button type="submit" class="btn btn-link button-none" onclick="return confirm('Are you sure?');">Delete Ticket</button>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			</form></td></tr>
+			</form></td></tr>-->
 		</tbody>
 	</table>
 	<jsp:include page="fragments/ticketbuttons.jsp" />
@@ -61,6 +62,11 @@
 		<form action="/tickets/${ticket.id}/postcomment" method="POST">
 			<textarea name="contents" id="contents" cols="40" rows="5" required></textarea>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+			<sec:authorize access="hasRole('Manager')" var="isManager" />
+			<sec:authorize access="hasRole('Caseworker')" var="isCaseworker" />
+			<c:if test = "${ticket.state eq 'In Progress' && (isManager || isCaseworker)}">
+					<input type="checkbox" name="resolution" id="resolution"><label for="resolution">Post as Resolution</label>
+			</c:if>
 			<button type="submit" class="btn btn-primary">Post Your Comment</button>
 		</form>
 	</div>
