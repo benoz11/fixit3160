@@ -16,10 +16,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/**
- * @author Benjamin McDonnell (c3166457)
- *
- */
 @Configuration
 @EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {

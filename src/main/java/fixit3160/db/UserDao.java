@@ -22,7 +22,6 @@ import org.springframework.stereotype.Repository;
 import fixit3160.entities.User;
 
 /**
- * @author Benjamin McDonnell (c3166457)
  * Handles database access for the public.user database
  */
 

@@ -21,7 +21,6 @@ import javax.persistence.*;
 
 import org.springframework.context.annotation.ComponentScan;
 /**
- * @author Benjamin McDonnell (c3166457)
  * Defines a JPA entity object that represents a table in the database
  */
 

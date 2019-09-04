@@ -10,10 +10,6 @@
  *
  */
 package fixit3160.config;
-/**
- * @author Benjamin McDonnell (c3166457)
- *
- */
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -25,8 +21,6 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 /**
- * @author Benjamin McDonnell (c3166457)
- *
  * Compiler can't make the bean for dataSource if it doesn't exist here
  */
 

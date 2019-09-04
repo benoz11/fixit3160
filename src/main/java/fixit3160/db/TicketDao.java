@@ -25,7 +25,6 @@ import org.springframework.stereotype.Repository;
 import fixit3160.entities.Ticket;
 
 /**
- * @author Benjamin McDonnell (c3166457)
  * Handles database access for the public.ticket database
  * Note:
  * 		We do NOT need to provide implementation for these!

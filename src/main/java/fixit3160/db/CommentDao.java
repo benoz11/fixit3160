@@ -23,7 +23,6 @@ import fixit3160.entities.Comment;
 import fixit3160.entities.User;
 
 /**
- * @author Benjamin McDonnell (c3166457)
  * Handles database access for the public.comment database
  */
 

@@ -28,8 +28,6 @@ import fixit3160.db.UserDao;
 import fixit3160.entities.User;
 
 /**
- * @author Benjamin McDonnell (c3166457)
- *
  * Map urls to views, push models through with the view, session is handled elsewhere (Spring Security)
  * 
  * application.properties dictates that all pages are in webapp/WEB-INF/pages and must end with .jsp

@@ -20,7 +20,6 @@ import javax.persistence.*;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.GrantedAuthority;
 /**
- * @author Benjamin McDonnell (c3166457)
  * Defines a JPA entity object that represents a table in the database
  */
 

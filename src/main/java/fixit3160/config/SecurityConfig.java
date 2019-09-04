@@ -29,10 +29,7 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.access.expression.WebSecurityExpressionRoot;
 
 /**
- * @author Benjamin McDonnell (c3166457)
- *
  * Configuration for Spring Security
- *
  */
 
 @Configuration
