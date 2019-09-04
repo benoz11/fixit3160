@@ -4,24 +4,17 @@
  * Project: fixit3160
  *		An IT help ticketing support system developed using Spring
  *
- * SENG3160 University of Newcastle 2019
+ *    SENG3160 University of Newcastle 2019
  *
- * Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+ *    Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
  *
  */
 package fixit3160.controllers;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import fixit3160.db.CommentDao;
 import fixit3160.db.TicketDao;
 import fixit3160.db.UserDao;
@@ -39,9 +32,9 @@ import fixit3160.db.UserDao;
 public class GeneralController {
 	/*
 	 * Map urls to views, push models through with the view, 
-	 * session is handled elsewhere (Spring Security)
+	 * session is handled elsewhere by Spring Security
 	 * 
-	 * application.properties dictates that all pages are in webapp/WEB-INF/pages and must end with .jsp
+	 * application.properties dictates that all pages are in webapp/WEB-INF/pages and must end with the .jsp suffix
 	 * SecurityConfig dictates which users/roles can access which pages
 	 */
 

@@ -4,9 +4,9 @@
  * Project: fixit3160
  *		An IT help ticketing support system developed using Spring
  *
- * SENG3160 University of Newcastle 2019
+ *    SENG3160 University of Newcastle 2019
  *
- * Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+ *    Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
  *
  */
 package fixit3160.config;
@@ -24,7 +24,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class MvcConfig implements WebMvcConfigurer {
 	/**
-	 * Tells the program where to look for static resource objects (css, img, etc)
+	 * Tells the program where to look for static resource objects (CSS, images, JavaScript)
 	 */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

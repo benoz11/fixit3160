@@ -4,9 +4,9 @@
  * Project: fixit3160
  *		An IT help ticketing support system developed using Spring
  *
- * SENG3160 University of Newcastle 2019
+ *    SENG3160 University of Newcastle 2019
  *
- * Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+ *   Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
  *
  */
 package fixit3160.entities;

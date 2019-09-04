@@ -4,9 +4,9 @@
  * Project: fixit3160
  *		An IT help ticketing support system developed using Spring
  *
- * SENG3160 University of Newcastle 2019
+ *    SENG3160 University of Newcastle 2019
  *
- * Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+ *    Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
  *
  */
 package fixit3160.controllers;
@@ -60,41 +60,45 @@ public class TicketController {
 	@GetMapping("/tickets")
 	public ModelAndView tickets() {
 		ModelAndView mvc = new ModelAndView("tickets");
-		
+
+		/**
+		 * Dynamically alters prioritypoints of tickets in the database based on their prioritylevel
+		 * This is done to prevent tickets with a lower prioritylevel becoming starved in the system
+		 */
 		ArrayList<Ticket> allTickets = ticketDao.findAll();
-		LocalDateTime localDateTime = LocalDateTime.now(Clock.systemUTC());
+		LocalDateTime localDateTime = LocalDateTime.now(Clock.systemUTC());		// get current time in UTC
 		for(Ticket ticket : allTickets) {
-			if (ticket.getCreated().equals(localDateTime) == false) {
+			if (ticket.getPrioritypoints() < 1) {																		// if prioritypoints is equal to 0 or negative for some reason, reset to 1
+				ticket.setPriorityPoints(1);
+			}
+			if (ticket.getCreated().equals(localDateTime) == false) {									// check that ticket has not been just created
 				if (ticket.getPrioritylevel().equals("Low")) {
-					ticket.setPriorityPoints(ticket.getPrioritypoints() * 2); //getDateDifference(Date.from(localDateTime.atZone),ticket.getCreated(),TimeUnit.DAYS));
+					ticket.setPriorityPoints(ticket.getPrioritypoints() * 2);
 				} else if (ticket.getPrioritylevel().equals("Medium")) {
 					ticket.setPriorityPoints(ticket.getPrioritypoints() * 3);
-				} else if (ticket.getPrioritylevel().equals("Medium")) {
-					ticket.setPriorityPoints(ticket.getPrioritypoints() * 5);
+				} else if (ticket.getPrioritylevel().equals("High")) {
+					ticket.setPriorityPoints(ticket.getPrioritypoints() * 4);
 				} else {
-					ticket.setPriorityPoints(ticket.getPrioritypoints() * 8);
+					ticket.setPriorityPoints(ticket.getPrioritypoints() * 6);							// if prioritylevel is critical
 				}
 			}
 		}
-		
-		ArrayList<Ticket> tickets = ticketDao.findForCurrentUser(); //moved to after priority edits so they reflect the updates
+		ArrayList<Ticket> tickets = ticketDao.findForCurrentUser(); 							// moved to after altering of prioritypoints so that they reflect the updates
 		mvc.addObject("tickets", tickets);
-
 		ticketDao.saveAll(allTickets);
 		return mvc;
 	}
 
-	public long getDateDifference(Date date1, Date date2, TimeUnit tUnit) {
-		long dateDiff = date2.getTime() - date1.getTime();
-		return tUnit.convert(dateDiff, TimeUnit.DAYS);
-	}
+	/**
+	 * mapping for different JSPs
+	 * @return
+	 */
 
 	@GetMapping("/knowledgeBase")
 	public ModelAndView knowledgebase() {
 		ModelAndView mvc = new ModelAndView("knowledgebase");
 		ArrayList<Ticket> knowledgeBaseTickets = ticketDao.findInKnowledgeBase();
 		mvc.addObject("knowledgeBaseTickets", knowledgeBaseTickets);
-
 		return mvc;
 	}
 	
