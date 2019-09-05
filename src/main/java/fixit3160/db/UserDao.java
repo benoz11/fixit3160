@@ -31,11 +31,17 @@ public interface UserDao extends CrudRepository<User, Long> {
 	@PreAuthorize ("hasRole('Manager')")
 	public ArrayList<User> findAll();
 	
+	/**
+	 * Needs no PreAuthorize as this method is used when posting a comment
+	 * @param username
+	 * @return
+	 */
 	public Optional<User> findByUsername(String username);
 	
 	@PreAuthorize ("hasRole('Manager')")
 	public Optional<User> findById(int id);
 	
+	@PreAuthorize ("hasRole('Manager')")
 	public ArrayList<User> findAllByRole(String role);
 	
 	/*
@@ -49,6 +55,7 @@ public interface UserDao extends CrudRepository<User, Long> {
 	 * -change some values on it
 	 * -call the save method
 	 */
+	@Transactional
 	@PreAuthorize ("hasRole('Manager')")
 	public <S extends User> S save(S user);
 	
