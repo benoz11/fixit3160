@@ -115,28 +115,27 @@ public class TicketController {
 	/*
 	 * Related to ticket manipulation or state changing
 	 */
-	//TODO: @Kundayi //Deletes the ticket
+	// Deletes the ticket
 	@PostMapping("/tickets/{id}/delete")
 	public ModelAndView deleteTicket(@PathVariable int id) {
 		return new ModelAndView("redirect:/tickets");
 	}
-	//TODO: @Kundayi //Takes you to the edit a ticket page
+	 // Takes you to the edit a ticket page
 	@PostMapping("/tickets/{id}/edit")
 	public ModelAndView editTicket(@PathVariable int id) {
 		return new ModelAndView("redirect:/tickets");
 	}
-	//TODO: @Kundayi //Submits the edits
+	// Submits the edits
 	@PostMapping("/tickets/{id}/edit/submit")
 	public ModelAndView submitEditTicket(@PathVariable int id) {
-		
 		return new ModelAndView("redirect:/tickets");
 	}
-	//TODO: @Kundayi //Takes you to the create a ticket page
+	// Takes you to the create a ticket page
 	@GetMapping("/tickets/create")
 	public ModelAndView createTicket() {
 		return new ModelAndView("redirect:/tickets");
 	}
-	//TODO: @Kundayi //submits the ticket
+	// submits the ticket
 	@GetMapping("/tickets/create/submit")
 	public ModelAndView submitCreateTicket() {
 		return new ModelAndView("redirect:/tickets");
@@ -209,9 +208,9 @@ public class TicketController {
 	@PostMapping("/tickets/{id}/postcomment")
 	public ModelAndView postComment(@PathVariable int id, @RequestParam(value="contents") String contents, @RequestParam(value="resolution") Optional<String> resolution) {
 		Optional<Ticket> dbTicket = ticketDao.findById(id); 							// find ticket by id
-		if (dbTicket.isPresent() && canView(dbTicket.get())) {	// if ticket exists and user is allowed to view it
-			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //principal is the currently logged in Spring Security user object
-			Optional<User> dbposter = userDao.findByUsername(((UserDetails)principal).getUsername()); //find user by display name (currently all I can get from spring security)
+		if (dbTicket.isPresent() && canView(dbTicket.get())) {	 	// if ticket exists and user is allowed to view it
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // principal is the currently logged in Spring Security user object
+			Optional<User> dbposter = userDao.findByUsername(((UserDetails)principal).getUsername()); // find user by display name (currently all I can get from spring security)
 			if (dbposter.isPresent()) {													// if user exists
 				User poster = dbposter.get();											// get the user object
 				Comment newcomment = new Comment();										// create a new comment

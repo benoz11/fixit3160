@@ -1,3 +1,13 @@
+<!--
+* login.jsp
+* Project: fixit3160
+*		An IT help ticketing support system developed using Spring
+*
+*    SENG3160 University of Newcastle 2019
+*
+*    Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+* Page displayed initially to login to FixIT
+-->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
@@ -53,7 +63,6 @@
 				<input class="form-control" type='password' name='password' id='password'/>
 			</div>
 				<button type="submit" class="btn btn-primary">Log in</button>
-	
 			  <input type="hidden" name="${_csrf.parameterName}"
 				value="${_csrf.token}" />
 		</form>

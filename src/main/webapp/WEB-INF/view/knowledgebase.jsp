@@ -1,3 +1,14 @@
+<!--
+* knowledgebase.jsp
+* Project: fixit3160
+*		An IT help ticketing support system developed using Spring
+*
+*    SENG3160 University of Newcastle 2019
+*
+*    Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+* Ensure that same JSTL tags and formatting are used on every .jsp in the webapp
+-->
+
 <%@ page import="java.time.LocalDateTime" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
@@ -14,8 +25,8 @@
 	<form id="searchForm">
 		Search:<input type="text" name="searchTerm" value="" onkeyup = "search()" />
 	</form>
-	<% out.println(LocalDateTime.now());%>
 
+	<!-- display clickable headers -->
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -29,6 +40,7 @@
 				<th onclick="orderResults(7)">Priority Points</th>
 			</tr>
 		</thead>
+		<!-- display tickets in knowledge, each one on a new line -->
 		<tbody id = "tableBody">
 			<c:forEach items="${knowledgeBaseTickets}" var="ticket">
 				<tr class="clickable-row" data-href="/tickets/${ticket.id}">
@@ -40,7 +52,6 @@
 					<td><c:out value="${ticket.created}" /></td>
                     <td><c:out value="${ticket.prioritylevel}" /></td>
                     <td><c:out value="${ticket.prioritypoints}" /></td>
-
 				</tr>
 			</c:forEach>
 		</tbody>
