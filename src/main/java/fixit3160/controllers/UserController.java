@@ -49,7 +49,7 @@ public class UserController {
 	
 	/**
 	 * If user is found, show the viewuser page for this user
-	 * If user is not found, redirect to the users page
+	 * Otherwise, redirect to the users page
 	 * Shows how to use Optional objects with CrudRepository
 	 * @param id
 	 * @return
@@ -82,7 +82,7 @@ public class UserController {
 	public ModelAndView submitUserEdit(@PathVariable int id, @RequestParam(value="name") String name,
 			@RequestParam(value="role") String role, @RequestParam(value="username") String username) {
 		Optional<User> dbUser = userDao.findById(id);
-		if (dbUser.isPresent()) { //if the user exists in the DB
+		if (dbUser.isPresent()) { 		// if the user exists in the DB
 			User user = dbUser.get();
 			user.setName(name);
 			user.setRole(role);
@@ -100,8 +100,8 @@ public class UserController {
 	
 	@PostMapping("/users/create/submit")
 	public ModelAndView submitUserCreate(@RequestParam(value="name") String name,
-			@RequestParam(value="role") String role, @RequestParam(value="username") String username,
-			@RequestParam(value="password") String password) {
+			@RequestParam(value = "role") String role, @RequestParam(value="username") String username,
+			@RequestParam(value = "password") String password) {
 		User user = new User();
 		user.setName(name);
 		user.setRole(role);

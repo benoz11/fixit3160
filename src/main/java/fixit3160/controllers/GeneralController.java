@@ -2,7 +2,7 @@
  * Class: GeneralController.java
  * Package: fixit3160.controllers
  * Project: fixit3160
- *		An IT help ticketing support system developed using Spring
+ *	  An IT help ticketing support system developed using Spring
  *
  *    SENG3160 University of Newcastle 2019
  *

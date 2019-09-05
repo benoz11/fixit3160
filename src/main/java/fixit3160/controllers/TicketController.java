@@ -118,13 +118,11 @@ public class TicketController {
 	//TODO: @Kundayi //Deletes the ticket
 	@PostMapping("/tickets/{id}/delete")
 	public ModelAndView deleteTicket(@PathVariable int id) {
-		
 		return new ModelAndView("redirect:/tickets");
 	}
 	//TODO: @Kundayi //Takes you to the edit a ticket page
 	@PostMapping("/tickets/{id}/edit")
 	public ModelAndView editTicket(@PathVariable int id) {
-		
 		return new ModelAndView("redirect:/tickets");
 	}
 	//TODO: @Kundayi //Submits the edits
@@ -136,13 +134,11 @@ public class TicketController {
 	//TODO: @Kundayi //Takes you to the create a ticket page
 	@GetMapping("/tickets/create")
 	public ModelAndView createTicket() {
-		
 		return new ModelAndView("redirect:/tickets");
 	}
 	//TODO: @Kundayi //submits the ticket
 	@GetMapping("/tickets/create/submit")
 	public ModelAndView submitCreateTicket() {
-		
 		return new ModelAndView("redirect:/tickets");
 	}
 	
@@ -156,7 +152,6 @@ public class TicketController {
 			return mvc;
 		}
 		return new ModelAndView("redirect:/tickets");
-		
 	}
 
 	@PostMapping("/tickets/{id}/assign/submit")
@@ -167,7 +162,7 @@ public class TicketController {
 			if (dbUser.isPresent()) {
 				Ticket ticket = dbTicket.get();
 				User user = dbUser.get();
-				ticket.setCaseworker(user); //It is sufficient
+				ticket.setCaseworker(user);
 				if(ticket.getState().equals("Open")) {ticket.setState("In Progress");}
 				ticketDao.save(ticket);
 				return new ModelAndView("redirect:/tickets/"+id);
@@ -213,26 +208,25 @@ public class TicketController {
 	 */
 	@PostMapping("/tickets/{id}/postcomment")
 	public ModelAndView postComment(@PathVariable int id, @RequestParam(value="contents") String contents, @RequestParam(value="resolution") Optional<String> resolution) {
-		Optional<Ticket> dbTicket = ticketDao.findById(id); 							//find ticket by id
-		if (dbTicket.isPresent() && canView(dbTicket.get())) {	//if ticket exists and user is allowed to view it
+		Optional<Ticket> dbTicket = ticketDao.findById(id); 							// find ticket by id
+		if (dbTicket.isPresent() && canView(dbTicket.get())) {	// if ticket exists and user is allowed to view it
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //principal is the currently logged in Spring Security user object
 			Optional<User> dbposter = userDao.findByUsername(((UserDetails)principal).getUsername()); //find user by display name (currently all I can get from spring security)
-			if (dbposter.isPresent()) {													//if user exists
-				User poster = dbposter.get();											//get the user object
-				Comment newcomment = new Comment();										//create a new comment
-				
-				newcomment.setContents(contents);										//set its values...
+			if (dbposter.isPresent()) {													// if user exists
+				User poster = dbposter.get();											// get the user object
+				Comment newcomment = new Comment();										// create a new comment
+				newcomment.setContents(contents);										// set its values...
 				newcomment.setTicketid(id);
 				newcomment.setPosterid(poster.getId());
-				commentDao.save(newcomment);											//save comment to db
+				commentDao.save(newcomment);											// save comment to db
 				
-				if(resolution.isPresent()) {											//if we have ticked the post as resolution box
+				if(resolution.isPresent()) {											// if we have ticked the post as resolution box
 					Ticket ticket = dbTicket.get();
 					ticket.setState("Resolved");
 					ticketDao.save(ticket);
 				}
 				
-				return new ModelAndView("redirect:/tickets/"+id);						//reload ticket page
+				return new ModelAndView("redirect:/tickets/"+id);						// reload ticket page
 			}
 		} //ticket or user not found
 		return new ModelAndView("redirect:/tickets");
@@ -240,7 +234,7 @@ public class TicketController {
 	
 	@PostMapping("/tickets/{id}/deletecomment")
 	public ModelAndView deleteComment(@PathVariable int id, @RequestParam(value="commentid") int commentid) {
-		Optional<Ticket> dbTicket = ticketDao.findById(id); 							//find ticket by id
+		Optional<Ticket> dbTicket = ticketDao.findById(id); 							// find ticket by id
 		if (dbTicket.isPresent() && canView(dbTicket.get())) {	
 			commentDao.deleteById(commentid);
 			return new ModelAndView("redirect:/tickets/"+id);
@@ -251,7 +245,7 @@ public class TicketController {
 	@PostMapping("/tickets/{id}/editcomment")
 	public ModelAndView editComment(@PathVariable int id, @RequestParam(value="commentid") int commentid,
 			@RequestParam(value="commentcontents") String commentcontents) {
-		Optional<Ticket> dbTicket = ticketDao.findById(id); 							//find ticket by id
+		Optional<Ticket> dbTicket = ticketDao.findById(id); 							// find ticket by id
 		if (dbTicket.isPresent() && canView(dbTicket.get())) {	
 			Optional<Comment> dbComment = commentDao.findById(commentid);
 			if (dbComment.isPresent()) {

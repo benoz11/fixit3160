@@ -1,6 +1,6 @@
 /*
  * Class: orderingScript.js
- * Package: fixit3160.resources
+ *
  * Project: fixit3160
  *		An IT help ticketing support system developed using Spring
  *
@@ -9,7 +9,7 @@
  * Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
  *
  * Note: some ideas for the logic for this file came from https://www.w3schools.com/howto/howto_js_sort_table.asp;
- *           however, every effort has been made to ensure that it was not copied
+ *           however, effort has been made to ensure that it was not just copied
  */
 
 function orderResults(columnIndex) {

@@ -61,8 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-	  //http.authorizeRequests().anyRequest().permitAll(); //allow all requests TEST
-	  
 	  http.authorizeRequests()
     	.antMatchers("/login","/css/**","/img/**").permitAll()				                                                                       // all can access login/logout
     	.antMatchers("/", "/tickets").hasAnyAuthority("Manager","Regular","Caseworker")     // all other pages must be logged in to view

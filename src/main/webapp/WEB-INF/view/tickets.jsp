@@ -26,7 +26,7 @@
 				<th onclick="orderResults(4)">Assigned To</th>
 				<th onclick="orderResults(5)">Date Created</th>
 				<th onclick="orderResults(6)">Priority Level</th>
-				<th onclick="orderResults(7)">Priority Points</th>
+				<th onclick="orderResults(7)">Priority Pointse</th>
 			</tr>
 		</thead>
 		<tbody id = "tableBody">

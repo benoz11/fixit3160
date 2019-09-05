@@ -1,10 +1,12 @@
+<!-- Code for the navigation bar that sits at the top of the page and looks the same on every jsp -->
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="page" value="${requestScope['javax.servlet.forward.request_uri']}" />
 
 <nav class="navbar navbar-expand-sm fixit-bg-blue navbar-dark my-auto">
-  <ul class="navbar-nav">
+  <ul class="navbar-nav"> <!--navbar is formatted as an unordered list-->
 
   	<li class="nav-item">
   		<a href="/"><img class="nav-link" src="/resources/img/logo_white_small.png" alt="FixIT" /></a>

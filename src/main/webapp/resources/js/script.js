@@ -1,17 +1,24 @@
 /*
- * General scripts for FixIT3160
- * Benjamin McDonnell
+ * Class: script.js
+ *
+ * Project: fixit3160
+ *		An IT help ticketing support system developed using Spring
+ *
+ * SENG3160 University of Newcastle 2019
+ *
+ * Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+ *
  */
 
 /*
  * If we are on the users, tickets, or articles list page
- * When we click on something of class 'clickable-row', direct us to the url defined in its data-href value
+ * When we click on something of the class 'clickable-row', direct us to the url defined in its data-href value
  * Usage: <tr class="clickable-row" data-href="/users/${user.id}"><td>click me</td></tr>
  */
 if(location.pathname.match(/\/users/) ||  location.pathname.match(/\/tickets/) || location.pathname.match(/\/knowledgeBase/)) {
 	$(document).ready(function($) {
-	    $(".clickable-row").click(function() { //
-	        window.document.location.href = $(this).data("href"); //take us to the data-href attached to this object
+	    $(".clickable-row").click(function() {
+	        window.document.location.href = $(this).data("href"); // take us to the data-href attached to this object
 	    });
 	});
 }
@@ -42,7 +49,6 @@ function editComment(commentid) {
 	document.getElementById("commentcontents"+commentid).readOnly = false;
 	document.getElementById("canceleditbutton"+commentid).hidden= false;
 	document.getElementById("submiteditbutton"+commentid).hidden= false;
-	
 	document.getElementsByName("editbutton").forEach(function(obj) {obj.hidden = true;});	
 }
 
@@ -59,7 +65,7 @@ function submitCommentEdit(commentid) {
 }
 
 /*
- *	The ticketbuttons has just the one form wrapped around the section
+ *	The ticketbuttons has one form wrapped around the section
  *	Javascript is used to change the mapping for the form based on the button clicked
  */
 var actionpath = window.location.pathname;
