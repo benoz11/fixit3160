@@ -21,6 +21,7 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -133,7 +134,7 @@ public class TicketController {
 	// Submits the edits
 	@PostMapping("/tickets/{id}/edit/submit")
 	public ModelAndView submitEditTicket(@PathVariable int id, @RequestParam(value="description") String description,
-			@RequestParam(value="state") String state, @RequestParam(value="name") String name) {
+			@RequestParam(value="name") String name) {
 		Optional<Ticket> dbticket = ticketDao.findById(id);
 		if (dbticket.isPresent()) { //if the user exists in the DB
 			Ticket ticket = dbticket.get();

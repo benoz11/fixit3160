@@ -28,7 +28,6 @@ import fixit3160.entities.User;
 @Repository
 public interface UserDao extends CrudRepository<User, Long> {
 	
-	@PreAuthorize ("hasRole('Manager')")
 	public ArrayList<User> findAll();
 	
 	/**
@@ -38,10 +37,8 @@ public interface UserDao extends CrudRepository<User, Long> {
 	 */
 	public Optional<User> findByUsername(String username);
 	
-	@PreAuthorize ("hasRole('Manager')")
 	public Optional<User> findById(int id);
 	
-	@PreAuthorize ("hasRole('Manager')")
 	public ArrayList<User> findAllByRole(String role);
 	
 	/*
@@ -56,11 +53,9 @@ public interface UserDao extends CrudRepository<User, Long> {
 	 * -call the save method
 	 */
 	@Transactional
-	@PreAuthorize ("hasRole('Manager')")
 	public <S extends User> S save(S user);
 	
 	@Transactional
-	@PreAuthorize ("hasRole('Manager')")
 	public void deleteById(int id);
 	
 	
