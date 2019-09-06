@@ -16,9 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
-
 import javax.persistence.*;
-
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.context.annotation.ComponentScan;
@@ -53,8 +51,7 @@ public class Ticket implements Serializable {
     
     @Column(name="posterid", updatable=false, insertable=false)
     private Integer posterid;
-    
-    
+
     @JoinColumn(name = "caseworkerid")
     @ManyToOne
     @Basic(optional = true)
@@ -90,9 +87,7 @@ public class Ticket implements Serializable {
 	private Integer prioritypoints;
 
 
-	/*
-     * Methods
-     */
+	// getters and setters
 	public Integer getId() {
 		return id;
 	}
@@ -151,16 +146,13 @@ public class Ticket implements Serializable {
 
 	public String getPrioritylevel() { return prioritylevel; }
 
-
 	public void setPrioritylevel(String prioritylevel) { this.prioritylevel = prioritylevel; }
-
 
 	public int getPrioritypoints() {
 		return prioritypoints;
 	}
 
 	public void setPriorityPoints(int prioritypoints) { this.prioritypoints = prioritypoints; }
-
 	
 	public Integer getCaseworkerid() {
 		return caseworkerid;
@@ -185,5 +177,4 @@ public class Ticket implements Serializable {
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-
 }

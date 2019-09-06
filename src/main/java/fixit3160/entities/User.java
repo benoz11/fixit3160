@@ -14,9 +14,7 @@ package fixit3160.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Collection;
-
 import javax.persistence.*;
-
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.core.GrantedAuthority;
 /**
@@ -55,6 +53,7 @@ public class User implements Serializable {
     @Column(name = "created", insertable=false)
     private Date created;
 
+    // getters and setters
 	public Integer getId() {
 		return id;
 	}

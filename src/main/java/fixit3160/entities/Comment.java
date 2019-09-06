@@ -13,9 +13,7 @@ package fixit3160.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-
 import javax.persistence.*;
-
 import org.springframework.context.annotation.ComponentScan;
 
 /**
@@ -54,6 +52,7 @@ public class Comment implements Serializable {
     @JoinColumn(name="posterid", updatable=false, insertable=false)
     private User poster;
 
+    // getters and setters
 	public Integer getId() {
 		return id;
 	}
@@ -101,5 +100,4 @@ public class Comment implements Serializable {
 	public void setPoster(User poster) {
 		this.poster = poster;
 	}
-
 }
