@@ -19,6 +19,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.context.annotation.ComponentScan;
 /**
  * Defines a JPA entity object that represents a table in the database
@@ -27,7 +29,6 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan({ "fixit3160.*" })
 @Entity
 @Table(name = "tickets", schema = "public")
-@SecondaryTable(name = "users", schema = "public")
 public class Ticket implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -53,25 +54,20 @@ public class Ticket implements Serializable {
     @Column(name="posterid", updatable=false, insertable=false)
     private Integer posterid;
     
+    
     @JoinColumn(name = "caseworkerid")
     @ManyToOne
     @Basic(optional = true)
     private User caseworker;
     
+    
     @Column(name="caseworkerid", updatable=false, insertable=false)
-    private Integer caseworkerid;
+    @Basic(optional = true)
+    private Integer caseworkerid; 
 
     @Column(name = "name")
     @Basic(optional = false)
     private String name;
-    
-	@Column(name = "prioritylevel")
-	@Basic(optional = true)
-	private String prioritylevel;
-
-	@Column(name = "prioritypoints")
-	@Basic(optional = true)
-	private Integer prioritypoints;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", insertable=false)
@@ -81,9 +77,17 @@ public class Ticket implements Serializable {
      * Defines a OneToMany relationship with the comments table
      * One ticket can have many comments associated with it
      */
-    @OneToMany(mappedBy="ticketid")
+    @OneToMany(mappedBy="ticketid", orphanRemoval = true, cascade = CascadeType.PERSIST)
     @OrderBy("id")
     private List<Comment> comments = new ArrayList<Comment>();
+    
+    @Column(name = "prioritylevel")
+	@Basic(optional = true)
+	private String prioritylevel;
+
+	@Column(name = "prioritypoints")
+	@Basic(optional = true)
+	private Integer prioritypoints;
 
 
 	/*
@@ -157,14 +161,14 @@ public class Ticket implements Serializable {
 
 	public void setPriorityPoints(int prioritypoints) { this.prioritypoints = prioritypoints; }
 
-
+	
 	public Integer getCaseworkerid() {
 		return caseworkerid;
 	}
 
 	public void setCaseworkerid(Integer caseworkerid) {
 		this.caseworkerid = caseworkerid;
-	}
+	} 
 
 	public Integer getPosterid() {
 		return posterid;

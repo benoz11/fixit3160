@@ -28,7 +28,6 @@ div.comment {
 	<h1>Viewing Ticket</h1>
 	
 	<!-- Buttons here -->
-	<a href="/tickets/${ticket.id}/editticket" class="btn btn-primary">Edit Ticket</a><br>
 	<table class="table table-striped">
 		<tbody>
 			<tr><td>Name</td><td><c:out value="${ticket.name}" /></td></tr>

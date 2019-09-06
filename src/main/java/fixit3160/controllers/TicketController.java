@@ -110,11 +110,15 @@ public class TicketController {
 	// Deletes the ticket
 	@PostMapping("/tickets/{id}/delete")
 	public ModelAndView deleteTicket(@PathVariable int id) {
-		ticketDao.deleteById(id);
+		Optional<Ticket> dbTicket = ticketDao.findById(id);
+		if (dbTicket.isPresent()) {
+			ticketDao.deleteById(id);
+		}
 		return new ModelAndView("redirect:/tickets");
 	}
-	//TODO: @Kundayi //Takes you to the edit a ticket page
-	@GetMapping("/tickets/{id}/editticket")
+	
+	// Takes you to the edit a ticket page
+	@GetMapping("/tickets/{id}/edit")
 	public ModelAndView editTicket(@PathVariable int id) {
 		ModelAndView mvc;
 		Optional<Ticket> ticket = ticketDao.findById(id);
@@ -125,7 +129,7 @@ public class TicketController {
 		} //else
 		return new ModelAndView("redirect:/tickets");
 	}
-	 // Takes you to the edit a ticket page
+	
 	// Submits the edits
 	@PostMapping("/tickets/{id}/edit/submit")
 	public ModelAndView submitEditTicket(@PathVariable int id, @RequestParam(value="description") String description,
@@ -134,7 +138,6 @@ public class TicketController {
 		if (dbticket.isPresent()) { //if the user exists in the DB
 			Ticket ticket = dbticket.get();
 			ticket.setDescription(description);
-			ticket.setState(state);
 			ticket.setName(name);
 			ticketDao.save(ticket);
 			return new ModelAndView("redirect:/tickets/{id}");
@@ -166,8 +169,8 @@ public class TicketController {
 				newticket.setPoster(poster);
 				newticket.setPriorityPoints(1) ;
 				newticket.setPrioritylevel("Low");
-				ticketDao.save(newticket);
-		return new ModelAndView("redirect:/tickets/");
+				newticket = ticketDao.save(newticket);
+		return new ModelAndView("redirect:/tickets/"+newticket.getId());
 		
 		}
 		return new ModelAndView("redirect:/tickets/");}
@@ -367,7 +370,7 @@ public class TicketController {
 		Optional<User> dbUser = userDao.findByUsername(((UserDetails)principal).getUsername()); // find user by display name (currently all I can get from spring security)
 		if (dbUser.isPresent()) {													// if user exists
 			User user = dbUser.get();
-			if (user.getId() == ticket.getPosterid()) {return true;}
+			if (user.getId() == ticket.getPoster().getId()) {return true;}
 		}
 		return false;
 	}
@@ -399,9 +402,9 @@ public class TicketController {
 		if (dbUser.isPresent()) {
 			User user = dbUser.get(); 
 			int userid = user.getId();
-			int caseworkerid = (ticket.getCaseworker() == null)? 0 : ticket.getCaseworkerid();
+			int caseworkerid = (ticket.getCaseworker() == null)? 0 : ticket.getCaseworker().getId();
 			//if user is allowed to view ticket, direct as desired
-			if (userid == ticket.getPosterid() || userid == caseworkerid 
+			if (userid == ticket.getPoster().getId() || userid == caseworkerid 
 					|| user.getRole().equals("Manager")) {
 				return true;
 			}
