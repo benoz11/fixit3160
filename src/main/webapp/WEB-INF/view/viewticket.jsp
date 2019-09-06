@@ -1,3 +1,13 @@
+<!--
+* viewticket.jsp
+* Project: fixit3160
+*		An IT help ticketing support system developed using Spring
+*
+*    SENG3160 University of Newcastle 2019
+*
+*    Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+*
+-->
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@page session="true"%>
@@ -8,25 +18,22 @@
 	<jsp:include page="fragments/header.jsp" />
 	<title>FixIT Viewing Ticket</title>
 	<style>
-div.comment {
-  height:150px;
-  border: 0.25px solid #cccccc;
-  font-family: Tahoma, sans-serif;
-  border-radius:10px; 
-  background-color: blue
-  width: 590px;
-  padding: 10px;
-  margin: 10px;
-}
-
-
-</style>
+		div.comment {
+		  height:150px;
+		  border: 0.25px solid #cccccc;
+		  font-family: Tahoma, sans-serif;
+		  border-radius:10px;
+		  background-color: blue
+		  width: 590px;
+		  padding: 10px;
+		  margin: 10px;
+		}
+	</style>
 </head>
 <body>
-
 	<jsp:include page="fragments/navbar.jsp" />
 	<h1>Viewing Ticket</h1>
-	
+
 	<!-- Buttons here -->
 	<table class="table table-striped">
 		<tbody>
@@ -87,15 +94,10 @@ div.comment {
 			
 		</c:forEach>
 	</div>
-	
-	
-	<br>
+	<br/>
 	<a href="#top" style="font-weight:bold">Go to top</a>
-	<br><br>
-	
-	
-	
-	
+	<br/><br/>
+
 <jsp:include page="fragments/footer.jsp" />
 </body>
 </html>

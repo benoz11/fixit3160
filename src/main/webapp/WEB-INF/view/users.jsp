@@ -1,3 +1,14 @@
+<!--
+* users.jsp
+* Project: fixit3160
+*		An IT help ticketing support system developed using Spring
+*
+*    SENG3160 University of Newcastle 2019
+*
+*    Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+* Page for viewing all users
+-->
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
@@ -16,6 +27,7 @@
 		Search:<input type="text" name="searchTerm" value="" onkeyup = "search()" />
 	</form>
 
+	<!-- table that displays all users -->
 	<table class="table table-striped table-hover">
 		<thead>
 			<tr>
