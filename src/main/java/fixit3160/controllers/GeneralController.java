@@ -60,7 +60,12 @@ public class GeneralController {
 	}
 	
 	@GetMapping("/403")
-	public ModelAndView error() {
+	public ModelAndView error403() {
 		return new ModelAndView("403");
+	}
+	
+	@GetMapping("/error")
+	public ModelAndView error() {
+		return new ModelAndView("error");
 	}
 }
