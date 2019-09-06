@@ -11,8 +11,11 @@
  */
 package fixit3160.controllers;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import fixit3160.db.CommentDao;
@@ -35,13 +38,6 @@ public class GeneralController {
 	 * application.properties dictates that all pages are in webapp/WEB-INF/pages and must end with the .jsp suffix
 	 * SecurityConfig dictates which users/roles can access which pages
 	 */
-
-	@Autowired
-	private UserDao userDao;
-	@Autowired
-	private TicketDao ticketDao;
-	@Autowired
-	private CommentDao commentDao;
 	
 	@GetMapping("/")
 	public ModelAndView index() {
