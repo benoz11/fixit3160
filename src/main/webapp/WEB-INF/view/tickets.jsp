@@ -10,10 +10,11 @@
 </head>
 <body>
 	<jsp:include page="fragments/navbar.jsp" />
-	<h1>Tickets</h1>
+	<h1>Tickets</h1><br>
 	<form id="searchForm">
-		Search:<input type="text" name="searchTerm" value="" onkeyup = "search()" />
+		Search:<input type="text" name="searchTerm" value="" onkeyup = "search()" /><br>
 	</form>
+	<a href="/tickets/create" class="btn btn-primary">Create New Ticket</a>
 	<% out.println(LocalDateTime.now());%>
 
 	<table class="table table-striped">

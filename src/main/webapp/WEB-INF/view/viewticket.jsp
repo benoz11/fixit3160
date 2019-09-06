@@ -28,7 +28,7 @@ div.comment {
 	<h1>Viewing Ticket</h1>
 	
 	<!-- Buttons here -->
-	
+	<a href="/tickets/${ticket.id}/editticket" class="btn btn-primary">Edit Ticket</a><br>
 	<table class="table table-striped">
 		<tbody>
 			<tr><td>Name</td><td><c:out value="${ticket.name}" /></td></tr>
@@ -37,14 +37,15 @@ div.comment {
 			<tr><td>Assigned To</td><td><c:out value="${ticket.caseworker.name}" /></td></tr>
 			<tr><td>Description</td><td><c:out value="${ticket.description}" /></td></tr>
 			<tr><td>Created</td><td><c:out value="${ticket.created}" /></td></tr>
-			<!--  <tr><td>Edit</td><td><a href="/tickets/${ticket.id}/edit">Edit Ticket</a></td></tr>
+			<tr><td>Edit</td><td><a href="/tickets/${ticket.id}/edit">Edit Ticket</a></td></tr>
 			<tr><td>Delete</td><td>
-			<form action="/tickets/${ticket.id}/delete" method="POST" class="no-margin-block-end"><button type="submit" class="btn btn-link button-none" onclick="return confirm('Are you sure?');">Delete Ticket</button>
+			<form action="/tickets/${ticket.id}/delete" method="POST" class="no-margin-block-end"><button type="submit" class="btn btn-link button-none" onclick="return confirm('Delete Ticket?');">Delete Ticket</button>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-			</form></td></tr>-->
+			</form></td></tr>
 		</tbody>
 	</table>
-	<jsp:include page="fragments/ticketbuttons.jsp" /><button type="button">Back</button><br>
+	<jsp:include page="fragments/ticketbuttons.jsp" />
+	<a href="/tickets" style="font-weight:bold">Back</a>
 	
 	<!-- Post a comment -->
 	<br><div class="comment-post">
@@ -95,7 +96,7 @@ div.comment {
 	
 	
 	<br>
-	<a href="#top">Go to top</a>
+	<a href="#top" style="font-weight:bold">Go to top</a>
 	<br><br>
 	
 	

@@ -118,33 +118,68 @@ public class TicketController {
 	//TODO: @Kundayi //Deletes the ticket
 	@PostMapping("/tickets/{id}/delete")
 	public ModelAndView deleteTicket(@PathVariable int id) {
-		
+		ticketDao.deleteById(id);
 		return new ModelAndView("redirect:/tickets");
 	}
 	//TODO: @Kundayi //Takes you to the edit a ticket page
-	@PostMapping("/tickets/{id}/edit")
+	@GetMapping("/tickets/{id}/editticket")
 	public ModelAndView editTicket(@PathVariable int id) {
-		
+		ModelAndView mvc;
+		Optional<Ticket> ticket = ticketDao.findById(id);
+		if (ticket.isPresent()) { //if the ticket exists in the DB
+			mvc = new ModelAndView("editticket");
+			mvc.addObject("ticket", ticket.get());
+			return mvc;
+		} //else
 		return new ModelAndView("redirect:/tickets");
 	}
 	//TODO: @Kundayi //Submits the edits
 	@PostMapping("/tickets/{id}/edit/submit")
-	public ModelAndView submitEditTicket(@PathVariable int id) {
-		
+	public ModelAndView submitEditTicket(@PathVariable int id, @RequestParam(value="description") String description,
+			@RequestParam(value="state") String state, @RequestParam(value="name") String name) {
+		Optional<Ticket> dbticket = ticketDao.findById(id);
+		if (dbticket.isPresent()) { //if the user exists in the DB
+			Ticket ticket = dbticket.get();
+			ticket.setDescription(description);
+			ticket.setState(state);
+			ticket.setName(name);
+			ticketDao.save(ticket);
+			return new ModelAndView("redirect:/tickets/{id}");
+		}
 		return new ModelAndView("redirect:/tickets");
 	}
+	
+	
 	//TODO: @Kundayi //Takes you to the create a ticket page
 	@GetMapping("/tickets/create")
 	public ModelAndView createTicket() {
-		
-		return new ModelAndView("redirect:/tickets");
+		return new ModelAndView("create");
 	}
+	
 	//TODO: @Kundayi //submits the ticket
-	@GetMapping("/tickets/create/submit")
-	public ModelAndView submitCreateTicket() {
+	@PostMapping("/tickets/create/submit")
+	public ModelAndView submitCreateTicket(@RequestParam(value ="name") String name, 
+		@RequestParam(value="description") String description)
+		{   
+			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //principal is the currently logged in Spring Security user object
+			Optional<User> dbposter = userDao.findByUsername(((UserDetails)principal).getUsername()); //find user by display name (currently all I can get from spring security)
+			if (dbposter.isPresent()) {                                                    // if user exists
+				User poster = dbposter.get(); //gets the User object							//if user exists
+				Ticket newticket = new Ticket();
+				
+				newticket.setName(name);
+				newticket.setState("Open");
+				newticket.setDescription(description);
+				newticket.setPoster(poster);
+				newticket.setPriorityPoints(1) ;
+				newticket.setPrioritylevel("Low");
+				ticketDao.save(newticket);
+		return new ModelAndView("redirect:/tickets/");
 		
-		return new ModelAndView("redirect:/tickets");
+		}
+		return new ModelAndView("redirect:/tickets/");
 	}
+
 	
 	@PostMapping("/tickets/{id}/close")
 	public ModelAndView closeTicket(@PathVariable int id) {
