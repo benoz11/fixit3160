@@ -17,8 +17,18 @@
 <body>
 	<jsp:include page="fragments/navbar.jsp" />
 	<h1>Hello <sec:authentication property="name"/></h1>
-	<!-- display statistics embedded in an iframe-->
-	<iframe width="100%" height="800" frameborder="0" scrolling="no" src="//plot.ly/dashboard/jordan.maddock:12/embed"></iframe>
+
+	<sec:authorize access="hasRole('Manager')">
+		<iframe class="plotlyDashboard" src="//plot.ly/dashboard/jordan.maddock:18/embed"></iframe>
+	</sec:authorize>
+
+	<sec:authorize access="hasRole('Caseworker')">
+		<iframe class="plotlyDashboard" src="//plot.ly/dashboard/jordan.maddock:18/embed"></iframe>
+	</sec:authorize>
+
+	<sec:authorize access="hasRole('Regular')">
+		<iframe class="plotlyDashboard" src="//plot.ly/dashboard/jordan.maddock:17/embed"></iframe>
+	</sec:authorize>
 
 </body>
 </html>
