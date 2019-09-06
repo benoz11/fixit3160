@@ -16,7 +16,7 @@
 </head>
 <body>
 	<jsp:include page="fragments/navbar.jsp" />
-	<h1>Error! The action you tried to perform was illegal</h1>
+	<h1>Error! The action you tried to perform was illegal!</h1>
 	<img src="/resources/img/NekoAtsumePolice.png">
 </body>
 

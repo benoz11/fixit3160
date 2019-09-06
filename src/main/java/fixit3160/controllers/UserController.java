@@ -14,6 +14,8 @@ package fixit3160.controllers;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -115,6 +117,46 @@ public class UserController {
 	public ModelAndView submitUserDelete(@PathVariable int id) {
 		userDao.deleteById(id);
 		return new ModelAndView("redirect:/users/");
+	}
+	
+	@GetMapping("/myprofile")
+	public ModelAndView myProfile() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //principal is the currently logged in Spring Security user object
+		Optional<User> dbUser = userDao.findByUsername(((UserDetails)principal).getUsername()); //find user by display name (currently all I can get from spring security)
+		if (dbUser.isPresent()) {        // if user exists
+			
+			ModelAndView mvc = new ModelAndView("myprofile");
+			mvc.addObject("user", dbUser.get());
+			return mvc;
+		}
+		return new ModelAndView("redirect:/");
+	}
+	
+	@GetMapping("/myprofile/edit")
+	public ModelAndView editMyProfile() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //principal is the currently logged in Spring Security user object
+		Optional<User> dbUser = userDao.findByUsername(((UserDetails)principal).getUsername()); //find user by display name (currently all I can get from spring security)
+		if (dbUser.isPresent()) {        // if user exists
+			ModelAndView mvc = new ModelAndView("editmyprofile");
+			mvc.addObject("user", dbUser.get());
+			return mvc;
+		}
+		return new ModelAndView("redirect:/");
+	}
+	
+	@PostMapping("/myprofile/edit/submit")
+	public ModelAndView submitEditMyProfile(@RequestParam(value="name") String name,
+			 @RequestParam(value="username") String username) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //principal is the currently logged in Spring Security user object
+		Optional<User> dbUser = userDao.findByUsername(((UserDetails)principal).getUsername()); //find user by display name (currently all I can get from spring security)
+		if (dbUser.isPresent()) {        // if user exists
+			User user = dbUser.get();
+			user.setName(name);
+			user.setUsername(username);
+			userDao.save(user);
+			return new ModelAndView("redirect:/myprofile");
+		}
+		return new ModelAndView("/");
 	}
 	
 }
