@@ -18,6 +18,7 @@
 	<jsp:include page="fragments/navbar.jsp" />
 	<h1>Hello <sec:authentication property="name"/></h1>
 
+	<!-- display statistic dashbaords -->
 	<sec:authorize access="hasRole('Manager')">
 		<iframe class="plotlyDashboard" src="//plot.ly/dashboard/aandster:0/embed"></iframe>
 	</sec:authorize>

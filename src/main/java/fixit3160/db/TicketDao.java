@@ -26,7 +26,7 @@ import fixit3160.entities.Ticket;
 
 /**
  * Handles database access for the public.ticket database
- * Note:
+ * Note on using Hibernate:
  * 		We do NOT need to provide implementation for these!
  * 		Hibernate will automatically wire these up to our db
  * 		Just specify the return/param type and use the given naming conventions, eg
@@ -86,21 +86,6 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 	@Query ("SELECT t FROM Ticket t "
 			+ "ORDER BY t.description DESC")
 	public ArrayList<Ticket> orderAlphabeticallyDescending();
-
-	/* modified query that searches description */
-	@Query ("SELECT t FROM Ticket t WHERE "
-			+ "t.description LIKE '%keyboard%'")
-	public ArrayList<Ticket> findKeyboard();
-
-	public ArrayList<Ticket> findByDescriptionContaining(String containing);
-
-	/* modified query that searches both name and description*/
-	@Query ("SELECT t FROM Ticket t WHERE "
-			+ "t.name LIKE '%testing%' OR "
-			+ "t.name LIKE '%testing%' OR "
-			+ "t.description LIKE '%testing%' OR "
-			+ "t.description LIKE '%testing%'")
-	public ArrayList<Ticket> findSearchTerm(String searchTerm);
 
 	public ArrayList<Ticket> findAllByOrderByDescriptionAsc();
 	public ArrayList<Ticket> findAllByOrderByDescriptionDesc();

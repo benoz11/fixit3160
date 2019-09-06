@@ -145,25 +145,21 @@ public class TicketController {
 		}
 		return new ModelAndView("redirect:/tickets");
 	}
-	
-	
-	//TODO: @Kundayi //Takes you to the create a ticket page
+
 	@GetMapping("/tickets/create")
 	public ModelAndView createTicket() {
 		return new ModelAndView("create");
 	}
-	
-	//TODO: @Kundayi //submits the ticket
+
 	@PostMapping("/tickets/create/submit")
 	public ModelAndView submitCreateTicket(@RequestParam(value ="name") String name, 
 		@RequestParam(value="description") String description)
 		{   
 			Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); //principal is the currently logged in Spring Security user object
 			Optional<User> dbposter = userDao.findByUsername(((UserDetails)principal).getUsername()); //find user by display name (currently all I can get from spring security)
-			if (dbposter.isPresent()) {                                                    // if user exists
-				User poster = dbposter.get(); //gets the User object							//if user exists
+			if (dbposter.isPresent()) {        // if user exists
+				User poster = dbposter.get(); 	//gets the User object
 				Ticket newticket = new Ticket();
-				
 				newticket.setName(name);
 				newticket.setState("Open");
 				newticket.setDescription(description);
@@ -176,7 +172,6 @@ public class TicketController {
 		}
 		return new ModelAndView("redirect:/tickets/");}
 
-	
 	@PostMapping("/tickets/{id}/assign")
 	public ModelAndView assignTicket(@PathVariable int id) {
 		ModelAndView mvc = new ModelAndView("assigncaseworker");
