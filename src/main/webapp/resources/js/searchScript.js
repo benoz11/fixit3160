@@ -8,7 +8,7 @@
  *
  * Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
  *
- * Note: some ideas for the logic for this file came from https://www.w3schools.com/howto/howto_js_sort_table.asp;
+ * Note: ideas for the logic for this file came from https://www.w3schools.com/howto/howto_js_sort_table.asp;
  *           however, effort has been made to ensure that it was not just copied
  */
 

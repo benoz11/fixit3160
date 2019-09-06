@@ -58,9 +58,9 @@
 					<td><c:out value="${ticket.created}" /></td>
                     <td><c:out value="${ticket.prioritylevel}" /></td>
                     <td><c:out value="${ticket.prioritypoints}" /></td>
-
 				</tr>
 			</c:forEach>
+
 		</tbody>
 	</table>
 

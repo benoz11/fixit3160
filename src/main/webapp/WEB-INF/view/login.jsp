@@ -45,7 +45,9 @@
 				<h2 class="text-center">Welcome to FixIT</h2>
 				<h3 class="text-center">Please Log in</h3>
 			</div>
-	
+
+			<!-- intended to be used for displaying message or error when navigating back to this page -
+					not implemented due to time constraints -->
 			<c:if test="${not empty error}">
 				<div class="error">${error}</div>
 			</c:if>
