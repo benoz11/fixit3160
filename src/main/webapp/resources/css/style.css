@@ -16,6 +16,22 @@
 	padding: 0px 0px;
 }
 
+.div.comment {
+		  height:150px;
+		  border: 0.25px solid #cccccc;
+		  font-family: Tahoma, sans-serif;
+		  border-radius:10px;
+		  
+		  width: 590px;
+		  padding: 10px;
+		  margin: 20px;
+		  
+		}
+		
+.textarea.commentcontents{
+	resize:none;
+}
+		
 .nav-item > form {
 	padding: 0px 0px;
 	line-height: 80px;

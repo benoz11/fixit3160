@@ -46,10 +46,14 @@ if(location.pathname.match(/\/users\/\d+\/edit/)) {
 var oldval;
 function editComment(commentid) {
 	window.oldval = document.getElementById("commentcontents"+commentid).value;
-	document.getElementById("commentcontents"+commentid).readOnly = false;
+	
+	document.getElementById("commentcontents"+commentid).readOnly = false;	
 	document.getElementById("canceleditbutton"+commentid).hidden= false;
 	document.getElementById("submiteditbutton"+commentid).hidden= false;
-	document.getElementsByName("editbutton").forEach(function(obj) {obj.hidden = true;});	
+	document.getElementById("commentcontents" + commentid).style.backgroundColor = "white";
+	document.getElementById("commentcontents" + commentid).style.border = "0.5px solid black";
+	document.getElementsByName("editbutton").forEach(function(obj) {obj.hidden = true;});
+	
 }
 
 function cancelEditComment(commentid) {
@@ -89,6 +93,7 @@ $('button[name="editTicketButton"]').click(function(){
 	$('#buttonForm').attr('action', actionpath + '/edit');
 	$('#buttonForm').submit();
 });
+
 $('button[name="completeTicketButton"]').click(function(){
 	$('#buttonForm').attr('action', actionpath + '/complete');
 	$('#buttonForm').submit();

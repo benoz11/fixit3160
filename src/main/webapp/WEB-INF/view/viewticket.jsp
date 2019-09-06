@@ -17,18 +17,7 @@
 <head>
 	<jsp:include page="fragments/header.jsp" />
 	<title>FixIT Viewing Ticket</title>
-	<style>
-		div.comment {
-		  height:150px;
-		  border: 0.25px solid #cccccc;
-		  font-family: Tahoma, sans-serif;
-		  border-radius:10px;
-		  background-color: blue
-		  width: 590px;
-		  padding: 10px;
-		  margin: 10px;
-		}
-	</style>
+	
 </head>
 <body>
 	<jsp:include page="fragments/navbar.jsp" />
@@ -52,7 +41,7 @@
 	<br><div class="comment-post">
 		<form action="/tickets/${ticket.id}/postcomment" method="POST">
 			<textarea name="contents" id="contents" 
-     cols="40" rows="5" style="width:600px; height:120px;border: 3px solid #cccccc; padding:5px; font-family: Tahoma, sans-serif;border-radius:10px; onblur="setbg('white')"; onfocus="this.value"; setbg('#e5fff3');"" required placeholder="Enter Your Comment Here..."></textarea>
+     cols="40" rows="5" maxlength="200" style="width:600px; height:120px;border: 3px solid #cccccc; padding:5px; font-family: Tahoma, sans-serif;border-radius:10px; onblur="setbg('white')"; onfocus="this.value"; setbg('#e5fff3');"" required placeholder="Enter Your Comment Here..."></textarea>
 			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/> 
 			<sec:authorize access="hasRole('Manager')" var="isManager" />
 			<sec:authorize access="hasRole('Caseworker')" var="isCaseworker" />
