@@ -22,17 +22,24 @@ Project is compiled using maven - see pom.xml for dependencies
 
 ### Roles
 Manager			-	The admin/manager
+
 Caseworker		-	The person who finds and posts solutions to tickets
+
 Regular			-	The user who is using the system to report a problem that they need help with
+
 User			-	An alias for ANY user within the system - Not a real role
 
 ### Ticket States / Lifecycle
 Open 			- Newly posted, not assigned to anyone
+
 In Progress		- Manager has assigned the ticket to a Caseworkers
-Resolved		- Manager or Caseworker has posted a solution to the problem
-					Users can Reject the solution to change the ticket state back to In Progress
+
+Resolved		- Manager or Caseworker has posted a solution to the problem - Users can Reject the solution to change the ticket state back to In Progress
+					
 Completed		- User has accepted the solution - Ticket cannot be edited at or after this stage
+
 Knowledge Base	- Manager believes this solution might be useful to others, makes it public
+
 Closed			- Manager has locked the ticket as it has been deemed unworthy
 
 ### Software Major Functions
