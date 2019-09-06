@@ -22,7 +22,7 @@
 		<table class="table table-striped">
 			<tbody>
 				<tr>
-					<td>Name</td><td><input type="text" name="name" id="name" required></td>
+					<td>Name</td><td><input type="text" name="name" id="name" maxlength="20" required></td>
 				</tr>
 				<tr>
 					<td>Role</td>
@@ -37,10 +37,10 @@
 					</td>
 				</tr>
 				<tr>
-					<td>User name</td><td><input type="text" name="username" id="username" required></td>
+					<td>User name</td><td><input type="text" name="username" id="username" maxlength="20" required></td>
 				</tr>
 				<tr>
-					<td>Password</td><td><input type="password" name="password" id="password" required>
+					<td>Password</td><td><input type="password" name="password" id="password" maxlength="20" required>
 				</td>
 			</tbody>
 		</table>

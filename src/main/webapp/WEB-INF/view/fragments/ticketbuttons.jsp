@@ -31,6 +31,9 @@
 			<sec:authorize access="hasRole('Regular')">
 				<button type="button" name="editTicketButton">Edit Ticket</button>
 			</sec:authorize>
+			<sec:authorize access="hasRole('Manager')">
+				<button type="button" name="editTicketButton">Edit Ticket</button>
+			</sec:authorize>
 		</c:when>
 		
 		<c:when test = "${ticket.state eq 'In Progress'}">

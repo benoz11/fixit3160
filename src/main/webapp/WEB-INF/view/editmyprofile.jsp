@@ -21,8 +21,8 @@
 	<form action="/myprofile/edit/submit" method="POST">
 		<table class="table table-striped">
 			<tbody>
-				<tr><td>Name</td><td><input type="text" name="name" id="name" value="${user.name}"></td></tr>
-				<tr><td>User name</td><td><input type="text" name="username" id="username" value="${user.username}"></td></tr>
+				<tr><td>Name</td><td><input type="text" name="name" id="name" maxlength="20" value="${user.name}"></td></tr>
+				<tr><td>User name</td><td><input type="text" name="username" id="username" maxlength="20" value="${user.username}"></td></tr>
 			</tbody>
 		</table>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

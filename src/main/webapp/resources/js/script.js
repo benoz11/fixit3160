@@ -90,8 +90,7 @@ $('button[name="assignTicketButton"]').click(function(){
 	$('#buttonForm').submit();
 });
 $('button[name="editTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', actionpath + '/edit');
-	$('#buttonForm').submit();
+	window.location = window.location.pathname + "/edit";
 });
 
 $('button[name="completeTicketButton"]').click(function(){

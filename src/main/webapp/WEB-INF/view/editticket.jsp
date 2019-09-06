@@ -11,8 +11,8 @@
 	<form action="/tickets/${ticket.id}/edit/submit" method="POST">
 		<table class="table table-striped">
 			<tbody>
-				<tr><td>Name</td><td><input type="text" name="name" id="name" value="${ticket.name}"></td></tr>
-				<tr><td>Description</td><td><input type="text" name="description" id="description" value="${ticket.description}"></td></tr>
+				<tr><td>Name</td><td><input type="text" name="name" id="name" size="50" maxlength="50" value="${ticket.name}"></td></tr>
+				<tr><td>Description</td><td><input type="text" name="description" id="description" size="50" maxlength="200" value="${ticket.description}"></td></tr>
 			</tbody>
 		</table>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
