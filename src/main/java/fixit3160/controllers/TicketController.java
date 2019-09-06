@@ -55,21 +55,21 @@ public class TicketController {
 	@Autowired
 	private CommentDao commentDao;
 	
+	/**
+	 * Dynamically up date the priority of all tickets
+	 * Get all tickets that the current user is allowed to see
+	 * @return
+	 */
 	@GetMapping("/tickets")
 	public ModelAndView tickets() {
 		ModelAndView mvc = new ModelAndView("tickets");
-
-		/**
-		 * Dynamically alters prioritypoints of tickets in the database based on their prioritylevel
-		 * This is done to prevent tickets with a lower prioritylevel becoming starved in the system
-		 */
 		ArrayList<Ticket> allTickets = ticketDao.findAll();
 		LocalDateTime localDateTime = LocalDateTime.now(Clock.systemUTC());		// get current time in UTC
 		for(Ticket ticket : allTickets) {
-			if (ticket.getPrioritypoints() < 1) {																		// if prioritypoints is equal to 0 or negative for some reason, reset to 1
+			if (ticket.getPrioritypoints() < 1) {								// if prioritypoints is equal to 0 or negative for some reason, reset to 1
 				ticket.setPriorityPoints(1);
 			}
-			if (ticket.getCreated().equals(localDateTime) == false) {									// check that ticket has not been just created
+			if (ticket.getCreated().equals(localDateTime) == false) {			// check that ticket has not been just created
 				if (ticket.getPrioritylevel().equals("Low")) {
 					ticket.setPriorityPoints(ticket.getPrioritypoints() * 2);
 				} else if (ticket.getPrioritylevel().equals("Medium")) {
@@ -77,20 +77,15 @@ public class TicketController {
 				} else if (ticket.getPrioritylevel().equals("High")) {
 					ticket.setPriorityPoints(ticket.getPrioritypoints() * 4);
 				} else {
-					ticket.setPriorityPoints(ticket.getPrioritypoints() * 6);							// if prioritylevel is critical
+					ticket.setPriorityPoints(ticket.getPrioritypoints() * 6);	// if prioritylevel is critical
 				}
 			}
 		}
-		ArrayList<Ticket> tickets = ticketDao.findForCurrentUser(); 							// moved to after altering of prioritypoints so that they reflect the updates
-		mvc.addObject("tickets", tickets);
 		ticketDao.saveAll(allTickets);
+		ArrayList<Ticket> tickets = ticketDao.findForCurrentUser();
+		mvc.addObject("tickets", tickets);
 		return mvc;
 	}
-
-	/**
-	 * mapping for different JSPs
-	 * @return
-	 */
 
 	@GetMapping("/knowledgeBase")
 	public ModelAndView knowledgebase() {
@@ -112,9 +107,6 @@ public class TicketController {
 		return new ModelAndView("redirect:/tickets");
 	}
 	
-	/*
-	 * Related to ticket manipulation or state changing
-	 */
 	// Deletes the ticket
 	@PostMapping("/tickets/{id}/delete")
 	public ModelAndView deleteTicket(@PathVariable int id) {
@@ -171,35 +163,35 @@ public class TicketController {
 	}
 	
 	@PostMapping("/tickets/{id}/close")
-	public ModelAndView closeTicket(@PathVariable int id) {
+	public ModelAndView closeTicket(@PathVariable int id, Authentication authentication) {
 		//Manager can close an open ticket
 		//Manager or caseworker can close an in progress, resolved, or completed ticket
-		return setState(id, "Closed");
+		return setStateRedirect(id, "Closed", authentication);
 	}
 	
 	@PostMapping("/tickets/{id}/complete")
-	public ModelAndView completeTicket(@PathVariable int id) {
+	public ModelAndView completeTicket(@PathVariable int id, Authentication authentication) {
 		//poster can use this if old state was Resolved
 		//manager can use this at any time
-		return setState(id, "Completed");
+		return setStateRedirect(id, "Completed", authentication);
 	}
 	
 	@PostMapping("/tickets/{id}/reject")
-	public ModelAndView rejectTicket(@PathVariable int id) {
+	public ModelAndView rejectTicket(@PathVariable int id, Authentication authentication) {
 		//poster or manager can use this IF old state was Resolved
-		return setState(id, "In Progress");
+		return setStateRedirect(id, "In Progress", authentication);
 	}
 	
 	@PostMapping("/tickets/{id}/kb")
-	public ModelAndView kbTicket(@PathVariable int id) {
+	public ModelAndView kbTicket(@PathVariable int id, Authentication authentication) {
 		//Manager can use this if old state was Completed
-		return setState(id, "Knowledge Base");
+		return setStateRedirect(id, "Knowledge Base", authentication);
 	}
 	
 	@PostMapping("/tickets/{id}/open")
-	public ModelAndView openTicket(@PathVariable int id) {
+	public ModelAndView openTicket(@PathVariable int id, Authentication authentication) {
 		//Manager can use this if old state was Closed
-		return setState(id, "Open");
+		return setStateRedirect(id, "Open", authentication);
 	}
 	
 	/*
@@ -232,26 +224,36 @@ public class TicketController {
 	}
 	
 	@PostMapping("/tickets/{id}/deletecomment")
-	public ModelAndView deleteComment(@PathVariable int id, @RequestParam(value="commentid") int commentid) {
+	public ModelAndView deleteComment(@PathVariable int id, @RequestParam(value="commentid") int commentid, Authentication authentication) {
+		boolean manager = (authentication.getAuthorities().toArray()[0] + "").equals("Manager"); //true if user is manager
 		Optional<Ticket> dbTicket = ticketDao.findById(id); 							// find ticket by id
 		if (dbTicket.isPresent() && canView(dbTicket.get())) {	
-			commentDao.deleteById(commentid);
-			return new ModelAndView("redirect:/tickets/"+id);
+			Optional<Comment> dbComment = commentDao.findById(commentid);
+			if (dbComment.isPresent()) {
+				Comment comment = dbComment.get();
+				if (isOwner(comment) || manager) {
+					commentDao.deleteById(commentid);
+					return new ModelAndView("redirect:/tickets/"+id);
+				}
+			}
 		}
 		return new ModelAndView("redirect:/tickets");
 	}
 	
 	@PostMapping("/tickets/{id}/editcomment")
 	public ModelAndView editComment(@PathVariable int id, @RequestParam(value="commentid") int commentid,
-			@RequestParam(value="commentcontents") String commentcontents) {
+			@RequestParam(value="commentcontents") String commentcontents, Authentication authentication) {
+		boolean manager = (authentication.getAuthorities().toArray()[0] + "").equals("Manager"); //true if user is manager
 		Optional<Ticket> dbTicket = ticketDao.findById(id); 							// find ticket by id
 		if (dbTicket.isPresent() && canView(dbTicket.get())) {	
 			Optional<Comment> dbComment = commentDao.findById(commentid);
 			if (dbComment.isPresent()) {
 				Comment comment = dbComment.get();
-				comment.setContents(commentcontents);
-				commentDao.save(comment);
-				return new ModelAndView("redirect:/tickets/"+id);
+				if(isOwner(comment) || manager) {
+					comment.setContents(commentcontents);
+					commentDao.save(comment);
+					return new ModelAndView("redirect:/tickets/"+id);
+				}
 			}
 		}
 		return new ModelAndView("redirect:/tickets");
@@ -263,20 +265,86 @@ public class TicketController {
 	
 	/**
 	 * Set the state for ticket with this id, return model and view for redirect
+	 * Most of the authentication logic is not exactly necessary, as GET requests are not supported
+	 *  	for the relevant paths and the POST forms only appear 
+	 *  		for the relevant parties in the jsp.
+	 *  However due to the fact that POST requests can be falsified using certain software,
+	 *  	Extra protections are helpful to stop users 
+	 *  		from performing actions outside of their scope.
 	 * @param id
 	 * @param newstate
+	 * @param authentication
 	 * @return
 	 */
-	private ModelAndView setState(int id, String newstate) {
+	private ModelAndView setStateRedirect(int id, String newstate, Authentication authentication) {
 		Optional<Ticket> dbTicket = ticketDao.findById(id);
 		if (dbTicket.isPresent()) {
 			Ticket ticket = dbTicket.get();  //get the ticket from the optional object
-			ticket.setState(newstate);       //close ticket
-			ticket = ticketDao.save(ticket); //save the changes and reassign the ticket ref to the newly saved ticket
-			
-			return new ModelAndView("redirect:/tickets/"+id);
+			String role = authentication.getAuthorities().toArray()[0] + ""; //get user's role as string
+			String oldstate = ticket.getState();
+			boolean owner = isOwner(ticket);
+			boolean manager = role.equals("Manager");
+			//if user and state conditions are correct, set the state and save, else return to tickets
+			if ( (manager && oldstate.equals("Open") && newstate.equals("Closed")) ||
+					(equalsAny(role,"Manager","Caseworker") && (equalsAny(oldstate,"In Progress","Resolved","Completed")) && newstate.equals("Closed")) ||
+					(owner && oldstate.equals("Resolved") && newstate.equals("Completed")) ||
+					(manager && oldstate.equals("Knowledge Base") && newstate.equals("Completed")) ||
+					((owner || manager) && oldstate.equals("Resolved") && newstate.equals("In Progress")) ||
+					(manager && oldstate.equals("Completed") & newstate.equals("Knowledge Base")) ||
+					(manager && oldstate.equals("Closed") && newstate.equals("Open"))) {
+				ticket.setState(newstate);       //close ticket
+				ticket = ticketDao.save(ticket); //save the changes and reassign the ticket ref to the newly saved ticket
+				
+				return new ModelAndView("redirect:/tickets/"+id);
+			}
 		}
 		return new ModelAndView("redirect:/tickets");
+	}
+	
+	/**
+	 * Quick way to check if the first string equals any of the other strings
+	 * Can take any number of args, id equalsAny(lhs,a,b) or equalsAny(lhs,a,b,c,d,e,f), etc
+	 * @param lhs
+	 * @param stringarr
+	 * @return
+	 */
+	private boolean equalsAny(String lhs, String... stringarr) {
+		for(String s : stringarr) {
+			if (lhs.equals(s)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Check if current user is the owner (poster) of this ticket
+	 * @param ticket
+	 * @return
+	 */
+	private boolean isOwner(Ticket ticket) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // principal is the currently logged in Spring Security user object
+		Optional<User> dbUser = userDao.findByUsername(((UserDetails)principal).getUsername()); // find user by display name (currently all I can get from spring security)
+		if (dbUser.isPresent()) {													// if user exists
+			User user = dbUser.get();
+			if (user.getId() == ticket.getPosterid()) {return true;}
+		}
+		return false;
+	}
+	
+	/**
+	 * Check if current user is owner (poster) of this comment
+	 * @param comment
+	 * @return
+	 */
+	private boolean isOwner(Comment comment) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal(); // principal is the currently logged in Spring Security user object
+		Optional<User> dbUser = userDao.findByUsername(((UserDetails)principal).getUsername()); // find user by display name (currently all I can get from spring security)
+		if (dbUser.isPresent()) {													// if user exists
+			User user = dbUser.get();
+			if (user.getId() == comment.getPosterid()) {return true;}
+		}
+		return false;
 	}
 	
 	/**

@@ -64,6 +64,14 @@ public class Ticket implements Serializable {
     @Column(name = "name")
     @Basic(optional = false)
     private String name;
+    
+	@Column(name = "prioritylevel")
+	@Basic(optional = true)
+	private String prioritylevel;
+
+	@Column(name = "prioritypoints")
+	@Basic(optional = true)
+	private Integer prioritypoints;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created", insertable=false)
@@ -76,21 +84,6 @@ public class Ticket implements Serializable {
     @OneToMany(mappedBy="ticketid")
     @OrderBy("id")
     private List<Comment> comments = new ArrayList<Comment>();
-
-	@Column(name = "prioritylevel")
-	@Basic(optional = true)
-	private String prioritylevel;
-
-
-	@Column(name = "prioritypoints")
-	@Basic(optional = true)
-	private Integer prioritypoints;
-
-
-
-	/*
-     * From other tables
-     */
 
 
 	/*
