@@ -57,7 +57,7 @@ div.comment {
 			<sec:authorize access="hasRole('Caseworker')" var="isCaseworker" />
 			<c:if test = "${ticket.state eq 'In Progress' && (isManager || isCaseworker)}">
 			<br>
-			<input type="checkbox" name="id" value="Resolution"> Post as Resolution 
+			<input type="checkbox" name="resolution" id="resolution"><label for="resolution">Post as Resolution</label>
 			</c:if>
 			<br>
 			<button type="submit" class="btn btn-primary">Publish Comment</button><br>
