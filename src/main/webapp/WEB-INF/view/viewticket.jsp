@@ -58,35 +58,39 @@
 	<!-- Comments section here -->
 	<h3> Comments: </h3><br>
 	<div class="comments">
+		<sec:authentication property="principal.username" var="securityusername"/>
+		<sec:authorize access="hasRole('Manager')" var="isManager" />
 		<c:forEach items="${ticket.comments}" var="comment">
 			<div class="comment">
-				<form action="/tickets/${ticket.id}/editcomment" method="POST" id="submitcommenteditform${comment.id}">
-				<div class="comment-poster" style="font-weight:bold">${comment.poster.name}:</div>
-				<textarea name="commentcontents" id="commentcontents${comment.id}" cols="100" rows="5" style="border-style:none; resize:none; background-color: #eee" readonly >${comment.contents}</textarea>
-				</div>
-				
-						<button type="button" name="editbutton" id="editbutton${comment.id}" onClick="editComment(${comment.id})">Edit Comment</button>
-						<button type="button" name="canceleditbutton" id="canceleditbutton${comment.id}" onClick="cancelEditComment(${comment.id})" hidden="true">Cancel</button>
-						<button type="button" name="submiteditbutton" id="submiteditbutton${comment.id}" onClick="submitCommentEdit(${comment.id})" hidden="true">Submit Changes</button>
+				<form class="no-margin-block-end" action="/tickets/${ticket.id}/editcomment" method="POST" id="submitcommenteditform${comment.id}">
+					<div class="comment-poster" style="font-weight:bold">${comment.poster.name}:</div>
+					<textarea name="commentcontents" id="commentcontents${comment.id}" cols="100" rows="5" style="border-style:none; resize:none; background-color: #eee" readonly >${comment.contents}</textarea>
 					
-					<input type="hidden" name="commentid" id="commentid" value="${comment.id}"/>
-					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+					
+					<c:if test="${securityusername eq comment.poster.username || isManager}">
+						<div>
+							<button type="button" name="editbutton" id="editbutton${comment.id}" onClick="editComment(${comment.id})">Edit Comment</button>
+							<button type="button" name="canceleditbutton" id="canceleditbutton${comment.id}" onClick="cancelEditComment(${comment.id})" hidden="true">Cancel</button>
+							<button type="button" name="submiteditbutton" id="submiteditbutton${comment.id}" onClick="submitCommentEdit(${comment.id})" hidden="true">Submit Changes</button>
+							<input type="hidden" name="commentid" id="commentid" value="${comment.id}"/>
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+						</div>
+					</c:if>
 				</form>
-				<!--<div class="comment-delete">-->
-				<br>
-					<form action="/tickets/${ticket.id}/deletecomment" method="POST" class="no-margin-block-end">
+				<c:if test="${securityusername eq comment.poster.username || isManager}">
+					<!--<div class="comment-delete">-->
+					<form action="/tickets/${ticket.id}/deletecomment" method="POST">
 						<button type="submit"  onclick="return confirm('Delete Comment?');">Delete Comment</button>
 						<input type="hidden" name="commentid" id="commentid" value="${comment.id}"/>
 						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 					</form> 
-				
-			
+				</c:if>
+			</div>
+			<br>
 		</c:forEach>
 	</div>
-	<br/>
 	<a href="#top" style="font-weight:bold">Go to top</a>
-	<br/><br/>
 
-<jsp:include page="fragments/footer.jsp" />
+	<jsp:include page="fragments/footer.jsp" />
 </body>
 </html>

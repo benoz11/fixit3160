@@ -154,7 +154,7 @@ public class UserController {
 			user.setName(name);
 			user.setUsername(username);
 			userDao.save(user);
-			return new ModelAndView("redirect:/myprofile");
+			return new ModelAndView("redirect:/logout");
 		}
 		return new ModelAndView("/");
 	}
