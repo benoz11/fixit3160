@@ -11,6 +11,7 @@
 
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <c:set var="page" value="${requestScope['javax.servlet.forward.request_uri']}" />
 
@@ -30,18 +31,24 @@
              Knowledge Base
          </a>
      </li>
-
+     
+	<sec:authorize access="hasRole('Manager')">
     <li class="nav-item">
     	<a class="nav-link${page.endsWith('/users') ? ' active' : ''}" href="/users">Users</a>
     </li>
-
+    </sec:authorize>
+    
     <li class="nav-item">
-      	<a class="nav-link${page.endsWith('/admin') ? ' active' : ''}" href="/admin">Admin</a>
-    </li>
+        <a class="nav-link${page.endsWith('/myprofile') ? ' active' : ''}" href="/myprofile">
+             My Profile
+        </a>
+     </li>
 
+	<!--  
     <li class="nav-item">
       	<a class="nav-link disabled" href="/abcefgh">Disabled</a>
     </li>
+    -->
 
     <li class="nav-item">
       <form name='logoutForm' action='/logout' method='POST'>

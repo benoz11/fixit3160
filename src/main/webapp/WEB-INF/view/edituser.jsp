@@ -38,7 +38,7 @@
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 		<button type="submit" class="btn btn-primary">Submit Changes</button>
 	</form>
-	<a href="/users">Back</a>
+	<a href="/users/${user.id}">Back</a>
 	
 <jsp:include page="fragments/footer.jsp" />
 </body>

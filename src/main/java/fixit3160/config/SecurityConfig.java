@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.access.expression.SecurityExpressionOperations;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -64,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	  http.authorizeRequests()
     	.antMatchers("/login","/css/**","/img/**").permitAll()				                                                                       // all can access login/logout
     	.antMatchers("/", "/tickets").hasAnyAuthority("Manager","Regular","Caseworker")     // all other pages must be logged in to view
-    	.antMatchers("/admin", "/users").access("hasAuthority('Manager')")	    // manager only can access admin
+    	.antMatchers("/admin", "/users","/tickets/{id}/delete").access("hasAuthority('Manager')")	    // manager only can access admin
 		.and()
 		.formLogin().loginPage("/login").failureUrl("/login?error")	     // take user to this page for login request, and to error page for failure
 		.usernameParameter("username").passwordParameter("password")    // params from form

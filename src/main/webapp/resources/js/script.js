@@ -72,8 +72,10 @@ var actionpath = window.location.pathname;
 if (actionpath.endsWith("/")) {actionpath = actionpath.slice(0,-1);}
 
 $('button[name="deleteTicketButton"]').click(function(){
-	$('#buttonForm').attr('action', actionpath + '/delete');
-	$('#buttonForm').submit();
+	if(confirm("Are you sure?")) {
+		$('#buttonForm').attr('action', actionpath + '/delete');
+		$('#buttonForm').submit();
+	}
 });
 $('button[name="closeTicketButton"]').click(function(){
 	$('#buttonForm').attr('action', actionpath + '/close');

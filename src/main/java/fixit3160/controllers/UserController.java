@@ -110,9 +110,11 @@ public class UserController {
 		user = userDao.save(user);
 		return new ModelAndView("redirect:/users/" + user.getId());
 	}
+	
 	@PostMapping("/users/{id}/delete")
 	public ModelAndView submitUserDelete(@PathVariable int id) {
 		userDao.deleteById(id);
 		return new ModelAndView("redirect:/users/");
 	}
+	
 }

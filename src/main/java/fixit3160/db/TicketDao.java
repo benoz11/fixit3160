@@ -50,7 +50,6 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 
 	public ArrayList<Ticket> findByNameContaining(String name); //consider some kind of fuzzysearch in future
 
-	@PreAuthorize("hasRole('Manager'")
 	public ArrayList<Ticket> findAll();
 
 	/**
@@ -105,9 +104,8 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 
 	public ArrayList<Ticket> findAllByOrderByDescriptionAsc();
 	public ArrayList<Ticket> findAllByOrderByDescriptionDesc();
-	//public void deleteByID(int id);
+	
 	@Transactional
-	@PreAuthorize ("hasRole('Manager')")
 	public void deleteById(int id);
 
 
