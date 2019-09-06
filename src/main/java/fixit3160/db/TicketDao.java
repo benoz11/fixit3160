@@ -72,6 +72,11 @@ public interface TicketDao extends CrudRepository<Ticket, Long> {
 	@Query("SELECT t FROM Ticket t WHERE t.state = 'Knowledge Base'")
 	public ArrayList<Ticket> findInKnowledgeBase();
 
+	/**
+	 * TODO: We want this to only be accessible if the user is allowed to see this ticket
+	 * @param id
+	 * @return
+	 */
 	public Optional<Ticket> findById(int id);
 
 	/* Sorting alphabetically, both ascending and descending */

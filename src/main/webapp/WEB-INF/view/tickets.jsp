@@ -1,3 +1,15 @@
+<!--
+* tickets.jsp
+* Project: fixit3160
+*		An IT help ticketing support system developed using Spring
+*
+*    SENG3160 University of Newcastle 2019
+*
+*    Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+* Page used to view all tickets in FixIT system - proportion of tickets dsiplayed will depend
+* on the role of the logged in user
+-->
+
 <%@ page import="java.time.LocalDateTime" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
@@ -14,9 +26,12 @@
 	<form id="searchForm">
 		Search:<input type="text" name="searchTerm" value="" onkeyup = "search()" /><br>
 	</form>
+
 	<a href="/tickets/create" class="btn btn-primary">Create New Ticket</a>
 	<% out.println(LocalDateTime.now());%>
 
+
+	<!-- display clickable headers -->
 	<table class="table table-striped">
 		<thead>
 			<tr>
@@ -27,9 +42,11 @@
 				<th onclick="orderResults(4)">Assigned To</th>
 				<th onclick="orderResults(5)">Date Created</th>
 				<th onclick="orderResults(6)">Priority Level</th>
-				<th onclick="orderResults(7)">Priority Points</th>
+				<th onclick="orderResults(7)">Priority Pointse</th>
 			</tr>
 		</thead>
+
+		<!-- display each ticket's attributes on a new row -->
 		<tbody id = "tableBody">
 			<c:forEach items="${tickets}" var="ticket">
 				<tr class="clickable-row" data-href="/tickets/${ticket.id}">

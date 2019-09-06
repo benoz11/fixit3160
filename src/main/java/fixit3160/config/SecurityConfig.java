@@ -61,19 +61,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    */
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-	  //http.authorizeRequests().anyRequest().permitAll(); //allow all requests TEST
-	  
 	  http.authorizeRequests()
     	.antMatchers("/login","/css/**","/img/**").permitAll()				                                                                       // all can access login/logout
     	.antMatchers("/", "/tickets").hasAnyAuthority("Manager","Regular","Caseworker")     // all other pages must be logged in to view
-    	.antMatchers("/admin", "/users").access("hasAuthority('Manager')")	                                      // manager only can access admin
+    	.antMatchers("/admin", "/users").access("hasAuthority('Manager')")	    // manager only can access admin
 		.and()
-		.formLogin().loginPage("/login").failureUrl("/login?error")	                                                                                                              // take user to this page for login request, and to error page for failure
-		.usernameParameter("username").passwordParameter("password")                                                                                            // params from form
+		.formLogin().loginPage("/login").failureUrl("/login?error")	     // take user to this page for login request, and to error page for failure
+		.usernameParameter("username").passwordParameter("password")    // params from form
 		.and()
-		.logout().logoutSuccessUrl("/login?logout")					                                                                                                                      // where to go on successful logout
+		.logout().logoutSuccessUrl("/login?logout")	// where to go on successful logout
 		.and()
-		.exceptionHandling().accessDeniedPage("/403")				                                                                                                                    // where to go if user is logged in but not allowed access to this page
+		.exceptionHandling().accessDeniedPage("/403")		 // where to go if user is logged in but not allowed access to this page
 		.and()
 		.csrf();
   } 

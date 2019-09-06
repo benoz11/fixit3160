@@ -1,3 +1,14 @@
+<!--
+* assigncaseworker.jsp
+* Project: fixit3160
+*		An IT help ticketing support system developed using Spring
+*
+*    SENG3160 University of Newcastle 2019
+*
+*    Benjamin McDonnell, Matthew Rudge, Jordan Maddock, Kundayi Sitole
+* Page that allows a manager to assign a ticket to a caseworker
+-->
+
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page session="true"%>
 <html>
@@ -23,7 +34,7 @@
 	<form action="/tickets/${ticket.id}/assign/submit" method="POST" class="no-margin-block-end">
 		<select name="caseworkerid">
 			<c:forEach items="${caseworkers}" var="caseworker">
-				<option value="${caseworker.id}">${caseworker.name}</option>
+				<option value="${caseworker.id}">${caseworker.name}</option>		<!-- display list of caseworkers -->
 			</c:forEach>
 		</select>
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
