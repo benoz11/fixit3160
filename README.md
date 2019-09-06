@@ -38,6 +38,8 @@ Compile & Run locally with `mvn spring-boot:run` then navigate to http://localho
 | Knowledge Base| Manager believes this solution might be useful to others, makes it public		|
 | Closed	| Manager has locked the ticket as it has been deemed unworthy				|
 
+*Here's a [State transition diagram](https://drive.google.com/file/d/1svo6e6X1p97XKs81Sh9r6BP7yzpGU_V7/view?usp=sharing)*
+
 ### Software Major Functions
 
 - Users
@@ -81,6 +83,8 @@ Compile & Run locally with `mvn spring-boot:run` then navigate to http://localho
 	- System contains security measures so that only logged in users can see content
 
 	- System contains security measures so that users can only see content specific to their account and access role
+
+*Please find the SENG3150 FixIT requirements document in the project files*
 
 ### Git / Local steps
 
