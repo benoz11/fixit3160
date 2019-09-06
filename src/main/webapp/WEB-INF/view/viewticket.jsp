@@ -3,7 +3,7 @@
 <%@page session="true"%>
 <%@ page import = "java.io.*,java.util.*, javax.servlet.*" %>
 
-<http>
+<html>
 <head>
 	<jsp:include page="fragments/header.jsp" />
 	<title>FixIT Viewing Ticket</title>

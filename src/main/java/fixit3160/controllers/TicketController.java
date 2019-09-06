@@ -399,8 +399,9 @@ public class TicketController {
 		if (dbUser.isPresent()) {
 			User user = dbUser.get(); 
 			int userid = user.getId();
+			int caseworkerid = (ticket.getCaseworker() == null)? 0 : ticket.getCaseworkerid();
 			//if user is allowed to view ticket, direct as desired
-			if (userid == ticket.getPosterid() || userid == ticket.getCaseworkerid() 
+			if (userid == ticket.getPosterid() || userid == caseworkerid 
 					|| user.getRole().equals("Manager")) {
 				return true;
 			}
