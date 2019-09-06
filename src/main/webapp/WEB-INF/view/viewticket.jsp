@@ -62,7 +62,7 @@
 			<div class="comment">
 				<form action="/tickets/${ticket.id}/editcomment" method="POST" id="submitcommenteditform${comment.id}">
 				<div class="comment-poster" style="font-weight:bold">${comment.poster.name}:</div>
-				<textarea name="commentcontents" id="commentcontents${comment.id}" cols="200" rows="4" style="border-style:none; overflow:none; background-color: #eee" readonly >${comment.contents}</textarea>
+				<textarea name="commentcontents" id="commentcontents${comment.id}" cols="100" rows="5" style="border-style:none; resize:none; background-color: #eee" readonly >${comment.contents}</textarea>
 				</div>
 				
 						<button type="button" name="editbutton" id="editbutton${comment.id}" onClick="editComment(${comment.id})">Edit Comment</button>
