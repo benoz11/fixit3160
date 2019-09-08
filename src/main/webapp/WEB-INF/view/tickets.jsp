@@ -36,12 +36,12 @@
 		<thead>
 			<tr>
 				<th onclick="orderResults(0)">Name</th>
-				<th onclick="orderResults(2)">State</th>
-				<th onclick="orderResults(3)">Posted By</th>
-				<th onclick="orderResults(4)">Assigned To</th>
-				<th onclick="orderResults(5)">Date Created</th>
-				<th onclick="orderResults(6)">Priority Level</th>
-				<th onclick="orderResults(7)">Priority Points</th>
+				<th onclick="orderResults(1)">State</th>
+				<th onclick="orderResults(2)">Posted By</th>
+				<th onclick="orderResults(3)">Assigned To</th>
+				<th onclick="orderResults(4)">Date Created</th>
+				<th onclick="orderResults(5)">Priority Level</th>
+				<th onclick="orderResults(6)">Priority Points</th>
 			</tr>
 		</thead>
 
